@@ -9,11 +9,11 @@ Mobile App past with differents categories of music and differents game modes :
 
 ## Font & Colors
 
-Font: Kadwa
-Primary color: #9274AE
-Secondary color: #E7E7E7
-Right answer: #71D161
-Wrong answer: #FF0000
+- Font: Kadwa
+- Primary color: #9274AE
+- Secondary color: #E7E7E7
+- Right answer: #71D161
+- Wrong answer: #FF0000
 
 ## Wireframes
 
