@@ -1,7 +1,25 @@
 ## Concept
 
-This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School.
-It's pre-configured with a set of tools which'll help students produce industry-quality and easier-to-maintain code, while staying as simple as possible to use.
+Mobile App past with differents categories of music and differents game modes : 
+- Categorie : Rap, 70's 80's, rock and maybe others... 
+- Game mode : easy / normal / hard 
+- A point systeme based on timer will calculate your score 
+- Evolutive avatar 
+- Possibility to restart the game or choose others parameters
+
+## Font & Colors
+
+- Font: Kadwa
+- Primary color: #9274AE
+- Secondary color: #E7E7E7
+- Right answer: #71D161
+- Wrong answer: #FF0000
+
+## Wireframes
+
+![alt text](./frontend/src/components/P2%20home.png)
+![alt text](./frontend/src/components/P2%20quizz.png)
+![alt text](./frontend/src/components/P2%20score.png)
 
 ## Setup & Use
 
@@ -33,3 +51,5 @@ It's pre-configured with a set of tools which'll help students produce industry-
 - _Prettier_ : "Quality of code" tool as well, focuses on the styleguide
 - _ Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS
 - _Nodemon_ : Allows to restart the server everytime a .js file is udated
+
+## Add
