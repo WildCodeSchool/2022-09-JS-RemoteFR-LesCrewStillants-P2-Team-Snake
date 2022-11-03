@@ -54,3 +54,45 @@ code {
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.list {
+  height: 50vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #585858;
+}
+
+.button {
+  box-shadow: -2px 5px 10px #2e2828;
+  background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+  border-radius: 15px;
+  border: 1px solid #333029;
+  cursor: pointer;
+  color: #585858;
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: bold;
+  height: 10vh;
+  width: 10vh;
+}
+.button:hover {
+  background: linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+  background-color: #ccc2a6;
+}
+
+.buttonClicked {
+  background-color: red;
+  box-shadow: -2px 5px 10px #2e2828;
+  /* background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%); */
+  border-radius: 15px;
+  border: 1px solid #333029;
+  cursor: pointer;
+  color: #585858;
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: bold;
+  height: 10vh;
+  width: 10vh;
+}
