@@ -1,7 +1,13 @@
 ## Concept
 
-This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School.
-It's pre-configured with a set of tools which'll help students produce industry-quality and easier-to-maintain code, while staying as simple as possible to use.
+    Application mobile blind test, avec choix de catégories de musiques et différent mode de jeu.
+
+        Les catégories : Rap, années 70/80, rock et toutes catégories confondues.
+
+        Les difficultés : facile / moyen / difficile.
+
+        Les modes de jeu : un premier mode ou le but est deviner la bonne combinaison artiste/titre et un deuxième ou il faut deviner séparément l'artiste et le titre.
+
 
 ## Setup & Use
 
