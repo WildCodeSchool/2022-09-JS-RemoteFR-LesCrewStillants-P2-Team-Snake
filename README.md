@@ -1,5 +1,6 @@
 ## Concept
 
+tailwind-install
 Mobile App past with differents categories of music and differents game modes : 
 - Categorie : Rap, 70's 80's, rock and maybe others... 
 - Game mode : easy / normal / hard 
@@ -20,6 +21,7 @@ Mobile App past with differents categories of music and differents game modes :
 ![alt text](./frontend/src/components/P2%20home.png)
 ![alt text](./frontend/src/components/P2%20quizz.png)
 ![alt text](./frontend/src/components/P2%20score.png)
+
 
 ## Setup & Use
 
