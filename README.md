@@ -1,12 +1,26 @@
 ## Concept
 
-    Application mobile blind test, avec choix de catégories de musiques et différent mode de jeu.
+tailwind-install
+Mobile App past with differents categories of music and differents game modes : 
+- Categorie : Rap, 70's 80's, rock and maybe others... 
+- Game mode : easy / normal / hard 
+- A point systeme based on timer will calculate your score 
+- Evolutive avatar 
+- Possibility to restart the game or choose others parameters
 
-        Les catégories : Rap, années 70/80, rock et toutes catégories confondues.
+## Font & Colors
 
-        Les difficultés : facile / moyen / difficile.
+- Font: Kadwa
+- Primary color: #9274AE
+- Secondary color: #E7E7E7
+- Right answer: #71D161
+- Wrong answer: #FF0000
 
-        Les modes de jeu : un premier mode ou le but est deviner la bonne combinaison artiste/titre et un deuxième ou il faut deviner séparément l'artiste et le titre.
+## Wireframes
+
+![alt text](./frontend/src/components/P2%20home.png)
+![alt text](./frontend/src/components/P2%20quizz.png)
+![alt text](./frontend/src/components/P2%20score.png)
 
 
 ## Setup & Use
@@ -39,3 +53,5 @@
 - _Prettier_ : "Quality of code" tool as well, focuses on the styleguide
 - _ Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS
 - _Nodemon_ : Allows to restart the server everytime a .js file is udated
+
+## Add

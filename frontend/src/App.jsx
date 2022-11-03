@@ -3,8 +3,6 @@ import Button from "./components/button"
 import React, { useState } from "react";
 import styles from './App.css';
 
-import "./App.css";
-
 function App() {
 
   const [selected, setSelected] = useState();
@@ -16,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <Home />
+
       <Button
         id="1"
         type={'Easy'}
