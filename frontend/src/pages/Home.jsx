@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
-import antho from "../assets/antho.png";
+import logo from "../assets/images/logo.png";
+import antho from "../assets/images/antho.png";
 import Button from "../components/Button";
-import "../App.css";
 import StartButton from "../components/StartButton";
+import "../App.css";
 
 export default function Home() {
   const [selectedDifficulty, setSelectedDifficulty] = useState();
@@ -77,10 +77,12 @@ export default function Home() {
                 onClick={handleClickGenre}
                 selected={selectedGenre === "6" ? "buttonClicked" : "button"}
               />
-              <Link to="/answer">
-                <StartButton id="7" className="startGame" />
-              </Link>
             </div>
+          </div>
+          <div>
+            <Link to="/answer">
+              <StartButton id="7" className="startGame" />
+            </Link>
           </div>
         </div>
       </main>

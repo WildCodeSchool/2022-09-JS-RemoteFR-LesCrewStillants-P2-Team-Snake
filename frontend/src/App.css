@@ -23,7 +23,7 @@ h1 {
   display: flex;
   height: 10vh;
   align-items: center;
-  background-image: url("./assets/header_bg.png");
+  background-image: url("./assets/images/header_bg.png");
   background-size: 60vh;
   background-repeat: no-repeat;
   background-position-x: center;
@@ -43,7 +43,7 @@ h2 {
 }
 
 header {
-  background-image: url("./assets/background_image2.jpg");
+  background-image: url("./assets/images/background_image2.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -78,6 +78,7 @@ footer {
 
 .buttons {
   display: flex;
+  justify-content: center;
 }
 
 .list {

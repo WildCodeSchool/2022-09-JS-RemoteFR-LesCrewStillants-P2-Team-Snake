@@ -1,9 +1,7 @@
-/* eslint-disable react/button-has-type */
-// eslint-disable-next-line react/prop-types
 function Button({ id, selected, type, onClick }) {
   return (
     <div>
-      <button id={id} className={selected} type={type} onClick={onClick}>
+      <button id={id} className={selected} onClick={onClick} type="button">
         {type}
       </button>
     </div>
