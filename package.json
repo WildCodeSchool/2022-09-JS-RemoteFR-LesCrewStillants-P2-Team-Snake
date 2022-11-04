@@ -26,11 +26,5 @@
   "bugs": {
     "url": "https://github.com/WildCodeSchool/2022-09-JS-RemoteFR-LesCrewStillants-P2-Team-Snake/issues"
   },
-  "homepage": "https://github.com/WildCodeSchool/2022-09-JS-RemoteFR-LesCrewStillants-P2-Team-Snake#readme",
-  "dependencies": {
-    "localforage": "^1.10.0",
-    "match-sorter": "^6.3.1",
-    "react-router-dom": "^6.4.3",
-    "sort-by": "^1.2.0"
-  }
+  "homepage": "https://github.com/WildCodeSchool/2022-09-JS-RemoteFR-LesCrewStillants-P2-Team-Snake#readme"
 }
