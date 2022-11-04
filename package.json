@@ -1,7 +1,7 @@
 {
   "name": "template-fullstack",
   "version": "1.0.0",
-  "description": "",
+  "description": "Application mobile blind test, avec choix de catégories de musiques et différent mode de jeu.",
   "main": "index.js",
   "scripts": {
     "setup": "npm i && husky install && npm --prefix ./frontend i && npm --prefix ./backend i",
@@ -18,5 +18,13 @@
   "devDependencies": {
     "concurrently": "^7.0.0",
     "husky": "^7.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WildCodeSchool/2022-09-JS-RemoteFR-LesCrewStillants-P2-Team-Snake.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WildCodeSchool/2022-09-JS-RemoteFR-LesCrewStillants-P2-Team-Snake/issues"
+  },
+  "homepage": "https://github.com/WildCodeSchool/2022-09-JS-RemoteFR-LesCrewStillants-P2-Team-Snake#readme"
 }
