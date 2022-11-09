@@ -1,0 +1,72 @@
+{
+  "music1": {
+    "id": 1,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music2": {
+    "id": 2,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music3": {
+    "id": 3,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music4": {
+    "id": 4,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music5": {
+    "id": 5,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music6": {
+    "id": 6,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music7": {
+    "id": 7,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music8": {
+    "id": 8,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music9": {
+    "id": 9,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  },
+  "music10": {
+    "id": 10,
+    "artiste": "",
+    "title": "",
+    "genre": "",
+    "extract": ""
+  }
+}
