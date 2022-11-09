@@ -6,26 +6,12 @@ import Button from "../components/Btn";
 import StartButton from "../components/StartButton";
 import "../App.css";
 
-export default function Home() {
-  const [selectedDifficulty, setSelectedDifficulty] = useState();
-  const [selectedGenre, setSelectedGenre] = useState();
+export default function Home(props) {
+
   const [showModal, setShowModal] = React.useState(false);
-  const [showBtn, setShowBtn] = React.useState(false);
+  const { selectedDifficulty, selectedGenre, userPseudo, changePseudo, handleClickDifficulty, handleClickGenre, showDifficulty } = props;
 
-  // fonction d'apparition des boutons après avoir écrit 3 caractères dans l'input text
-  const nextBtn = (e) => {
-    if (e.target.value.split("").length >= 3) {
-      setShowBtn(true);
-    } else setShowBtn(false);
-  };
 
-  const handleClickDifficulty = (e) => {
-    setSelectedDifficulty(e.currentTarget.id);
-  };
-
-  const handleClickGenre = (e) => {
-    setSelectedGenre(e.currentTarget.id);
-  };
 
   return (
     <>
@@ -84,9 +70,9 @@ export default function Home() {
       </header>
       <main>
         <div>
-          <input type="text" placeHolder="Pseudo" onChange={nextBtn} />
+          <input type="text" placeHolder="Pseudo" onChange={changePseudo} />
           <div>
-            {showBtn ? (
+            {showDifficulty ? (
               <div className="buttons">
                 <Button
                   id="1"
@@ -116,7 +102,7 @@ export default function Home() {
             ) : (
               false
             )}
-            {selectedDifficulty && showBtn ? (
+            {selectedDifficulty && showDifficulty ? (
               <div className="buttons">
                 <Button
                   id="4"
@@ -141,7 +127,7 @@ export default function Home() {
               false
             )}
           </div>
-          {selectedGenre && selectedDifficulty && showBtn ? (
+          {selectedGenre && selectedDifficulty && showDifficulty ? (
             <div>
               <Link to="/answer">
                 <StartButton id="7" className="startGame" />

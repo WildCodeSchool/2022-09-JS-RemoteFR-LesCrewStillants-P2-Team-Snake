@@ -8,7 +8,13 @@ import ButtonRetry from "../components/ButtonRetry";
 import "../App.css";
 import "../Step_progress.css";
 
-function Answer() {
+function Answer(props) {
+
+  // Récupération de la configuration de la partie
+  const { selectedDifficulty, selectedGenre, userPseudo } = props;
+  console.log(`Pseudo: ${userPseudo} Difficulty: ${selectedDifficulty} Genre: ${selectedGenre} `)
+
+
   const labelArray = [
     "Step 1",
     "Step 2",
@@ -22,6 +28,8 @@ function Answer() {
     "Step 10",
   ];
   const [currentStep, updateCurrentStep] = useState(1);
+
+
 
   const updateStep = (step) => {
     updateCurrentStep(step);
