@@ -6,18 +6,12 @@ import Button from "../components/Btn";
 import StartButton from "../components/StartButton";
 import "../App.css";
 
-export default function Home() {
-  const [selectedDifficulty, setSelectedDifficulty] = useState();
-  const [selectedGenre, setSelectedGenre] = useState();
+export default function Home(props) {
+
   const [showModal, setShowModal] = React.useState(false);
+  const { selectedDifficulty, selectedGenre, userPseudo, changePseudo, handleClickDifficulty, handleClickGenre, showDifficulty } = props;
 
-  const handleClickDifficulty = (e) => {
-    setSelectedDifficulty(e.currentTarget.id);
-  };
 
-  const handleClickGenre = (e) => {
-    setSelectedGenre(e.currentTarget.id);
-  };
 
   return (
     <>
@@ -76,60 +70,72 @@ export default function Home() {
       </header>
       <main>
         <div>
-          <input type="text" placeHolder="Pseudo" />
+          <input type="text" placeHolder="Pseudo" onChange={changePseudo} />
           <div>
-            <div className="buttons">
-              <Button
-                id="1"
-                type="Easy"
-                onClick={handleClickDifficulty}
-                selected={
-                  selectedDifficulty === "1" ? "buttonClicked" : "button"
-                }
-              />
-              <Button
-                id="2"
-                type="Normal"
-                onClick={handleClickDifficulty}
-                selected={
-                  selectedDifficulty === "2" ? "buttonClicked" : "button"
-                }
-              />
-              <Button
-                id="3"
-                type="Hard"
-                onClick={handleClickDifficulty}
-                selected={
-                  selectedDifficulty === "3" ? "buttonClicked" : "button"
-                }
-              />
-            </div>
-            <div className="buttons">
-              <Button
-                id="4"
-                type="Rock"
-                onClick={handleClickGenre}
-                selected={selectedGenre === "4" ? "buttonClicked" : "button"}
-              />
-              <Button
-                id="5"
-                type="Rap"
-                onClick={handleClickGenre}
-                selected={selectedGenre === "5" ? "buttonClicked" : "button"}
-              />
-              <Button
-                id="6"
-                type="80s"
-                onClick={handleClickGenre}
-                selected={selectedGenre === "6" ? "buttonClicked" : "button"}
-              />
-            </div>
+            {showDifficulty ? (
+              <div className="buttons">
+                <Button
+                  id="1"
+                  type="Easy"
+                  onClick={handleClickDifficulty}
+                  selected={
+                    selectedDifficulty === "1" ? "buttonClicked" : "button"
+                  }
+                />
+                <Button
+                  id="2"
+                  type="Normal"
+                  onClick={handleClickDifficulty}
+                  selected={
+                    selectedDifficulty === "2" ? "buttonClicked" : "button"
+                  }
+                />
+                <Button
+                  id="3"
+                  type="Hard"
+                  onClick={handleClickDifficulty}
+                  selected={
+                    selectedDifficulty === "3" ? "buttonClicked" : "button"
+                  }
+                />
+              </div>
+            ) : (
+              false
+            )}
+            {selectedDifficulty && showDifficulty ? (
+              <div className="buttons">
+                <Button
+                  id="4"
+                  type="Rock"
+                  onClick={handleClickGenre}
+                  selected={selectedGenre === "4" ? "buttonClicked" : "button"}
+                />
+                <Button
+                  id="5"
+                  type="Rap"
+                  onClick={handleClickGenre}
+                  selected={selectedGenre === "5" ? "buttonClicked" : "button"}
+                />
+                <Button
+                  id="6"
+                  type="80s"
+                  onClick={handleClickGenre}
+                  selected={selectedGenre === "6" ? "buttonClicked" : "button"}
+                />
+              </div>
+            ) : (
+              false
+            )}
           </div>
-          <div>
-            <Link to="/answer">
-              <StartButton id="7" className="startGame" />
-            </Link>
-          </div>
+          {selectedGenre && selectedDifficulty && showDifficulty ? (
+            <div>
+              <Link to="/answer">
+                <StartButton id="7" className="startGame" />
+              </Link>
+            </div>
+          ) : (
+            false
+          )}
           <button
             className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"

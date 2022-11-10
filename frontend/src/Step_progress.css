@@ -1,0 +1,50 @@
+.circle {
+  width: 29px;
+  height: 29px;
+  line-height: 25px;
+  background-color: #9274ae;
+  color: white;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding-left: 7px;
+}
+
+.stepWrapper {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.stepBlock .circleWrapper {
+  padding: 0px 20px;
+  position: relative;
+}
+
+.selected .circle {
+  color: transparent;
+  background-image: url("./assets/images/hourglass.png");
+  background-color: #9274ae;
+  border-color: #9274ae;
+}
+
+.stepBlock:not(:last-child) > .circleWrapper::after {
+  content: "";
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  background-color: #9274ae;
+  margin: auto;
+  z-index: -1;
+}
+
+.primaryButton {
+  padding: 10px 25px;
+  background-color: #9274ae;
+  border: none;
+  margin: 10px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
