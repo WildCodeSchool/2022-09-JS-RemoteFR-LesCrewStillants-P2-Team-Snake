@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import LecteurMusic from "../components/LecteurMusic";
 import Button from "../components/Btn";
 import StepNavigation from "../components/StepNavigation";
 import ButtonHome from "../components/ButtonHome";
@@ -69,7 +70,7 @@ function Answer(props) {
   return (
     <>
       <header>
-        <h1>Answer</h1>;
+        <h1>Answers</h1>;
       </header>
       <main>
         <div>
@@ -82,6 +83,7 @@ function Answer(props) {
               />
             </div>
             <div className="buttons">
+              <LecteurMusic videoId="5NV6Rdv1a3I" />
               <Button
                 id="1"
                 type={fakeButton1}
