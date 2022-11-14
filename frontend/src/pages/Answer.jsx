@@ -5,15 +5,15 @@ import Button from "../components/Btn";
 import StepNavigation from "../components/StepNavigation";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
-import "../App.css";
-import "../Step_progress.css";
+import "../assets/styles/App.css";
+import "../assets/styles/Step_progress.css";
 
 function Answer(props) {
-
   // Récupération de la configuration de la partie
   const { selectedDifficulty, selectedGenre, userPseudo } = props;
-  console.log(`Pseudo: ${userPseudo} Difficulty: ${selectedDifficulty} Genre: ${selectedGenre} `)
-
+  console.warn(
+    `Pseudo: ${userPseudo} Difficulty: ${selectedDifficulty} Genre: ${selectedGenre} `
+  );
 
   const labelArray = [
     "Step 1",
@@ -28,8 +28,6 @@ function Answer(props) {
     "Step 10",
   ];
   const [currentStep, updateCurrentStep] = useState(1);
-
-
 
   const updateStep = (step) => {
     updateCurrentStep(step);

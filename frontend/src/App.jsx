@@ -1,11 +1,10 @@
 import { Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
 import Answer from "./pages/Answer";
 import Home from "./pages/Home";
 import Finish from "./pages/Finish";
-import React, { useState } from "react";
 
 function App() {
-
   const [selectedDifficulty, setSelectedDifficulty] = useState();
   const [selectedGenre, setSelectedGenre] = useState();
   const [userPseudo, setUserPseudo] = useState();
@@ -27,12 +26,33 @@ function App() {
     setSelectedGenre(e.currentTarget.id);
   };
 
-
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home selectedDifficulty={selectedDifficulty} selectedGenre={selectedGenre} userPseudo={userPseudo} changePseudo={changePseudo} handleClickDifficulty={handleClickDifficulty} handleClickGenre={handleClickGenre} showDifficulty={showDifficulty} />} />
-        <Route path="/answer" element={<Answer selectedDifficulty={selectedDifficulty} selectedGenre={selectedGenre} userPseudo={userPseudo} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              selectedDifficulty={selectedDifficulty}
+              selectedGenre={selectedGenre}
+              userPseudo={userPseudo}
+              changePseudo={changePseudo}
+              handleClickDifficulty={handleClickDifficulty}
+              handleClickGenre={handleClickGenre}
+              showDifficulty={showDifficulty}
+            />
+          }
+        />
+        <Route
+          path="/answer"
+          element={
+            <Answer
+              selectedDifficulty={selectedDifficulty}
+              selectedGenre={selectedGenre}
+              userPseudo={userPseudo}
+            />
+          }
+        />
         <Route path="/home" element={<Home />} />
         <Route path="/finish" element={<Finish />} />
       </Routes>

@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import antho from "../assets/images/antho.png";
 import Button from "../components/Btn";
 import StartButton from "../components/StartButton";
-import "../App.css";
+import "../assets/styles/Home.css";
 
 export default function Home(props) {
-
-  const [showModal, setShowModal] = React.useState(false);
-  const { selectedDifficulty, selectedGenre, userPseudo, changePseudo, handleClickDifficulty, handleClickGenre, showDifficulty } = props;
-
-
+  const [showModal, setShowModal] = useState(false);
+  const {
+    selectedDifficulty,
+    selectedGenre,
+    changePseudo,
+    handleClickDifficulty,
+    handleClickGenre,
+    showDifficulty,
+  } = props;
 
   return (
     <>
@@ -69,11 +73,15 @@ export default function Home(props) {
         </h2>
       </header>
       <main>
-        <div>
-          <input type="text" placeHolder="Pseudo" onChange={changePseudo} />
-          <div>
+        <div className="circle" />
+        <div className="inputs">
+          <div className="txt">
+            <input type="text" placeHolder="Pseudo" onChange={changePseudo} />
+          </div>
+
+          <div className="Btns">
             {showDifficulty ? (
-              <div className="buttons">
+              <div className="btnDif">
                 <Button
                   id="1"
                   type="Easy"
@@ -102,50 +110,59 @@ export default function Home(props) {
             ) : (
               false
             )}
-            {selectedDifficulty && showDifficulty ? (
-              <div className="buttons">
-                <Button
-                  id="4"
-                  type="Rock"
-                  onClick={handleClickGenre}
-                  selected={selectedGenre === "4" ? "buttonClicked" : "button"}
-                />
-                <Button
-                  id="5"
-                  type="Rap"
-                  onClick={handleClickGenre}
-                  selected={selectedGenre === "5" ? "buttonClicked" : "button"}
-                />
-                <Button
-                  id="6"
-                  type="80s"
-                  onClick={handleClickGenre}
-                  selected={selectedGenre === "6" ? "buttonClicked" : "button"}
-                />
-              </div>
-            ) : (
-              false
-            )}
-          </div>
-          {selectedGenre && selectedDifficulty && showDifficulty ? (
             <div>
-              <Link to="/answer">
-                <StartButton id="7" className="startGame" />
-              </Link>
+              {selectedDifficulty && showDifficulty ? (
+                <div className="btnGe">
+                  <Button
+                    id="4"
+                    type="Rock"
+                    onClick={handleClickGenre}
+                    selected={
+                      selectedGenre === "4" ? "buttonClicked" : "button"
+                    }
+                  />
+                  <Button
+                    id="5"
+                    type="Rap"
+                    onClick={handleClickGenre}
+                    selected={
+                      selectedGenre === "5" ? "buttonClicked" : "button"
+                    }
+                  />
+                  <Button
+                    id="6"
+                    type="80s"
+                    onClick={handleClickGenre}
+                    selected={
+                      selectedGenre === "6" ? "buttonClicked" : "button"
+                    }
+                  />
+                </div>
+              ) : (
+                false
+              )}
             </div>
-          ) : (
-            false
-          )}
-          <button
-            className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            type="button"
-            onClick={() => setShowModal(true)}
-          >
-            Rules
-          </button>
+            <div className="startRules">
+              <button
+                className="modal"
+                type="button"
+                onClick={() => setShowModal(true)}
+              >
+                ?
+              </button>
+              {selectedGenre && selectedDifficulty && showDifficulty ? (
+                <div>
+                  <Link to="/answer">
+                    <StartButton id="7" className="startGame" />
+                  </Link>
+                </div>
+              ) : (
+                false
+              )}
+            </div>
+          </div>
         </div>
       </main>
-      <footer>footer</footer>
     </>
   );
 }
