@@ -10,6 +10,7 @@ export default function StepNavigation({
     <div className="stepWrapper">
       {labelArray.map((item, index) => (
         <Step
+          key={index}
           index={index}
           label={item}
           updateStep={updateStep}

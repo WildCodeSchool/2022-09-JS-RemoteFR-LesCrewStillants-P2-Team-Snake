@@ -1,9 +1,10 @@
 import YouTube from "react-youtube";
+import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
 
-function LecteurMusic({ videoId }) {
-  let duration = 0;
+function LecteurMusic({ videoId, selectedDifficulty }) {
+  const [duration, setDuration] = useState(0);
+  const [diffusionDuration, setDiffusionDurantion] = useState(15);
 
   useEffect(() => {
     axios
@@ -14,24 +15,37 @@ function LecteurMusic({ videoId }) {
       .then((response) => response.data)
       // Use this data to update the state
       .then((data) => {
-        const reg1 = data.items[0].contentDetails.duration.replace("PT", "");
-        const reg2 = reg1.replace("S", "");
-        const arr = reg2.split("M");
-        duration = +arr[0] * 60 + +arr[1];
+        setDuration(
+          Math.ceil(
+            eval(
+              data.items[0].contentDetails.duration // 166
+                .replace("PT", "")
+                .replace("S", "")
+                .replace("M", "*60+")
+            ) / 2
+          )
+        );
 
-        // console.warn(data.items[0].contentDetails.duration);
+        if (selectedDifficulty == 3) {
+          setDiffusionDurantion(10);
+        }
       });
-  }, []);
+  }, [videoId]);
+
+  console.warn(duration);
 
   const opts = {
-    height: "390",
-    width: "640",
+    height: "100",
+    width: "800",
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
-      start: duration / 2,
+      start: duration,
+      end: duration + diffusionDuration,
     },
   };
+
+  console.warn(videoId);
 
   return (
     <div>

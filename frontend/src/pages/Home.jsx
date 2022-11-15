@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import antho from "../assets/images/antho.png";
 import Button from "../components/Btn";
 import StartButton from "../components/StartButton";
 import "../assets/styles/Home.css";
+import axios from "axios";
 
 export default function Home(props) {
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +16,30 @@ export default function Home(props) {
     handleClickDifficulty,
     handleClickGenre,
     showDifficulty,
+    setMusicsGenre,
+    attribButton,
+    setAttribButton,
   } = props;
+
+  // Récupération des différents genres
+  useEffect(() => {
+    axios
+      .get(`https://api.elie-parthenay.fr/category`)
+      // Extract the DATA from the received response
+      .then((response) => response.data)
+      // Use this data to update the state
+      .then((data) => {
+        const arr = data.results.genre;
+        const prep = [];
+        for (let i = 0; i < 3; i++) {
+          const rands = Math.floor(Math.random() * arr.length);
+          prep.push(arr[rands]);
+          arr.splice(rands, 1);
+        }
+        setAttribButton(prep);
+        setMusicsGenre(data.results.genre);
+      });
+  }, []);
 
   return (
     <>
@@ -76,7 +100,7 @@ export default function Home(props) {
         <div className="circle" />
         <div className="inputs">
           <div className="txt">
-            <input type="text" placeHolder="Pseudo" onChange={changePseudo} />
+            <input type="text" placeholder="Pseudo" onChange={changePseudo} />
           </div>
 
           <div className="Btns">
@@ -111,11 +135,13 @@ export default function Home(props) {
               false
             )}
             <div>
-              {selectedDifficulty && showDifficulty ? (
+              {selectedDifficulty &&
+              showDifficulty &&
+              selectedDifficulty != "3" ? (
                 <div className="btnGe">
                   <Button
                     id="4"
-                    type="Rock"
+                    type={attribButton[0].name}
                     onClick={handleClickGenre}
                     selected={
                       selectedGenre === "4" ? "buttonClicked" : "button"
@@ -123,7 +149,7 @@ export default function Home(props) {
                   />
                   <Button
                     id="5"
-                    type="Rap"
+                    type={attribButton[1].name}
                     onClick={handleClickGenre}
                     selected={
                       selectedGenre === "5" ? "buttonClicked" : "button"
@@ -131,7 +157,7 @@ export default function Home(props) {
                   />
                   <Button
                     id="6"
-                    type="80s"
+                    type={attribButton[2].name}
                     onClick={handleClickGenre}
                     selected={
                       selectedGenre === "6" ? "buttonClicked" : "button"
@@ -150,7 +176,8 @@ export default function Home(props) {
               >
                 ?
               </button>
-              {selectedGenre && selectedDifficulty && showDifficulty ? (
+              {(selectedGenre && selectedDifficulty && showDifficulty) ||
+              (showDifficulty && selectedDifficulty == "3") ? (
                 <div>
                   <Link to="/answer">
                     <StartButton id="7" className="startGame" />
