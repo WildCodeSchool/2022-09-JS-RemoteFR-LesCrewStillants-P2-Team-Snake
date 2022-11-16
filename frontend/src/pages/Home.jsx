@@ -5,6 +5,7 @@ import logo from "../assets/images/logo.png";
 import antho from "../assets/images/antho.png";
 import Button from "../components/Btn";
 import StartButton from "../components/StartButton";
+
 export default function Home(props) {
   const [showModal, setShowModal] = useState(false);
   const {

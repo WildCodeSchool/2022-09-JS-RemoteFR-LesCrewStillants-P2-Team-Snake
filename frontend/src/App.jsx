@@ -8,6 +8,8 @@ function App() {
   const [musicsGenre, setMusicsGenre] = useState("");
   const [attribButton, setAttribButton] = useState("");
   const [diffusionDuration, setDiffusionDurantion] = useState(15);
+  const [gameUserAnswer, setGameUserAnswer] = useState([]);
+
 
   // fonction d'apparition des boutons après avoir écrit 3 caractères dans l'input text
   const [showDifficulty, setShowDifficulty] = useState(false); // Affichage des boutons de la difficultée quand le pseudo est correctement saisi
@@ -17,8 +19,12 @@ function App() {
     if (e.target.value.split("").length >= 3) {
       setShowDifficulty(true);
     } else setShowDifficulty(false);
-  };
 
+    if (e.target.value.toLowerCase() == "antholebg") {
+      window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
+    }
+
+  };
   // Function de selection de la difficultée
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const handleClickDifficulty = (e) => {
@@ -36,7 +42,7 @@ function App() {
   };
 
   // Tableau de la configuration de la partie
-  // const [gameConfiguration, setGameConfiguration] = useState([]);
+  const [gameConfigurations, setGameConfiguration] = useState([]);
 
   return (
     <div className="App">
@@ -56,8 +62,6 @@ function App() {
               musicsGenre={musicsGenre}
               attribButton={attribButton}
               setAttribButton={setAttribButton}
-              // gameConfiguration={gameConfiguration}
-              // setGameConfiguration={setGameConfiguration}
             />
           }
         />
@@ -72,6 +76,10 @@ function App() {
               gameGenre={gameGenre}
               diffusionDuration={diffusionDuration}
               setDiffusionDurantion={setDiffusionDurantion}
+              gameUserAnswer={gameUserAnswer}
+              setGameUserAnswer={setGameUserAnswer}
+              gameConfigurations={gameConfigurations}
+              setGameConfiguration={setGameConfiguration}
             />
           }
         />

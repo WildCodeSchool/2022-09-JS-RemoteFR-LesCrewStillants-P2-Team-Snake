@@ -8,6 +8,7 @@ import StepNavigation from "../components/StepNavigation";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
 import getMusics from "../services/getMusicsList";
+import setUserAnswer from "../services/setUserAnswer";
 import setButtonPosition from "../services/setButtonPosition";
 import RenderTime from "../components/Timer";
 
@@ -16,12 +17,18 @@ function Answer({
   selectedDifficulty,
   diffusionDuration,
   setDiffusionDurantion,
+  gameUserAnswer,
+  setGameUserAnswer,
+  gameConfigurations,
+  setGameConfiguration,
 }) {
   // Check loading component
   const [isLoading, setIsLoading] = useState(true);
 
+  // Quand la musique youtube se lance
+  const [videoPlaying, setVideoPlaying] = useState(false);
+
   // Game configuration
-  const [gameConfigurations, setGameConfiguration] = useState([]);
   const [currentVideo, setCurrentVideo] = useState("");
   const [buttonPositionArray, setButtonPositionArray] = useState([]);
 
@@ -41,6 +48,7 @@ function Answer({
     "Step 10",
   ];
   const updateStep = (step) => {
+    setVideoPlaying(false);
     updateCurrentStep(step);
     setCurrentVideo(gameConfigurations[step - 1][0].extract);
     setButtonPositionArray(setButtonPosition());
@@ -52,6 +60,13 @@ function Answer({
     }
     setSelected(e.currentTarget.id);
     updateStep(currentStep + 1);
+
+    if (e.currentTarget.innerHTML.toString()) {
+      setGameUserAnswer([
+        ...gameUserAnswer,
+        setUserAnswer(gameConfigurations, e, currentStep),
+      ]);
+    }
   };
 
   // Ajout du premier id vidéo
@@ -83,20 +98,24 @@ function Answer({
         <header>
           <h1>Answers</h1>
           <div className="timer-wrapper">
-            <CountdownCircleTimer
-              isPlaying
-              duration={diffusionDuration}
-              colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-              colorsTime={[
-                diffusionDuration,
-                diffusionDuration / 2,
-                diffusionDuration / 3,
-                0,
-              ]}
-              onComplete={() => [true, 1000]}
-            >
-              {RenderTime}
-            </CountdownCircleTimer>
+            {videoPlaying ? (
+              <CountdownCircleTimer
+                isPlaying
+                duration={diffusionDuration}
+                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                colorsTime={[
+                  diffusionDuration,
+                  diffusionDuration / 2,
+                  diffusionDuration / 3,
+                  0,
+                ]}
+                onComplete={() => [true, 1000]}
+              >
+                {RenderTime}
+              </CountdownCircleTimer>
+            ) : (
+              false
+            )}
           </div>
         </header>
         <main>
@@ -110,65 +129,69 @@ function Answer({
                   updateStep={updateStep}
                 />
               </div>
-              <div className="buttons">
-                <Button
-                  id="1"
-                  type={`${
-                    gameConfigurations[currentStep - 1][
-                      buttonPositionArray[0][0] - 1
-                    ].artist
-                  } - ${
-                    gameConfigurations[currentStep - 1][
-                      buttonPositionArray[0][0] - 1
-                    ].title
-                  }`}
-                  onClick={handleClick}
-                  disabled={currentStep === labelArray.length}
-                  selected={selected === "1" ? "buttonClicked" : "button"}
-                />
-                <Button
-                  id="2"
-                  type={`${
-                    gameConfigurations[currentStep - 1][
-                      buttonPositionArray[1][0] - 1
-                    ].artist
-                  } - ${
-                    gameConfigurations[currentStep - 1][
-                      buttonPositionArray[1][0] - 1
-                    ].title
-                  }`}
-                  onClick={handleClick}
-                  selected={selected === "2" ? "buttonClicked" : "button"}
-                />
-                <Button
-                  id="3"
-                  type={`${
-                    gameConfigurations[currentStep - 1][
-                      buttonPositionArray[2][0] - 1
-                    ].artist
-                  } - ${
-                    gameConfigurations[currentStep - 1][
-                      buttonPositionArray[2][0] - 1
-                    ].title
-                  }`}
-                  onClick={handleClick}
-                  selected={selected === "3" ? "buttonClicked" : "button"}
-                />
-                <Button
-                  id="4"
-                  type={`${
-                    gameConfigurations[currentStep - 1][
-                      buttonPositionArray[3][0] - 1
-                    ].artist
-                  } - ${
-                    gameConfigurations[currentStep - 1][
-                      buttonPositionArray[3][0] - 1
-                    ].title
-                  }`}
-                  onClick={handleClick}
-                  selected={selected === "4" ? "buttonClicked" : "button"}
-                />
-              </div>
+              {videoPlaying ? (
+                <div className="buttons">
+                  <Button
+                    id="1"
+                    type={`${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[0][0] - 1
+                      ].artist
+                    } - ${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[0][0] - 1
+                      ].title
+                    }`}
+                    onClick={handleClick}
+                    disabled={currentStep === labelArray.length}
+                    selected={selected === "1" ? "buttonClicked" : "button"}
+                  />
+                  <Button
+                    id="2"
+                    type={`${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[1][0] - 1
+                      ].artist
+                    } - ${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[1][0] - 1
+                      ].title
+                    }`}
+                    onClick={handleClick}
+                    selected={selected === "2" ? "buttonClicked" : "button"}
+                  />
+                  <Button
+                    id="3"
+                    type={`${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[2][0] - 1
+                      ].artist
+                    } - ${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[2][0] - 1
+                      ].title
+                    }`}
+                    onClick={handleClick}
+                    selected={selected === "3" ? "buttonClicked" : "button"}
+                  />
+                  <Button
+                    id="4"
+                    type={`${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[3][0] - 1
+                      ].artist
+                    } - ${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[3][0] - 1
+                      ].title
+                    }`}
+                    onClick={handleClick}
+                    selected={selected === "4" ? "buttonClicked" : "button"}
+                  />
+                </div>
+              ) : (
+                false
+              )}
             </div>
             <div className="btns">
               <div className="retry">
@@ -190,6 +213,7 @@ function Answer({
           videoId={currentVideo}
           diffusionDuration={diffusionDuration}
           setDiffusionDurantion={setDiffusionDurantion}
+          setVideoPlaying={setVideoPlaying}
         />
       </div>
     )
