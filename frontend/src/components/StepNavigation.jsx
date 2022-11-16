@@ -1,5 +1,5 @@
 import Step from "./Step";
-import "../Step_progress.css";
+import "../assets/styles/Step_progress.css";
 
 export default function StepNavigation({
   labelArray,
@@ -10,6 +10,7 @@ export default function StepNavigation({
     <div className="stepWrapper">
       {labelArray.map((item, index) => (
         <Step
+          key={index}
           index={index}
           label={item}
           updateStep={updateStep}

@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import LecteurMusic from "../components/LecteurMusic";
 import Button from "../components/Btn";
 import StepNavigation from "../components/StepNavigation";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
-import "../App.css";
-import "../Step_progress.css";
+import "../assets/styles/App.css";
+import "../assets/styles/Home.css";
+import "../assets/styles/Step_progress.css";
+import getMusics from "../services/getMusicsList";
 
-function Answer(props) {
+function Answer({ gameGenre, selectedDifficulty }) {
+  // Check loading component
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Récupération de la configuration de la partie
-  const { selectedDifficulty, selectedGenre, userPseudo } = props;
-  console.log(`Pseudo: ${userPseudo} Difficulty: ${selectedDifficulty} Genre: ${selectedGenre} `)
+  // Game configuration
+  const [gameConfigurations, setGameConfiguration] = useState([]);
+  const [currentVideo, setCurrentVideo] = useState("");
 
-
+  // Etapes de la partie
+  const [currentStep, updateCurrentStep] = useState(1);
+  const [selected, setSelected] = useState();
   const labelArray = [
     "Step 1",
     "Step 2",
@@ -27,102 +34,106 @@ function Answer(props) {
     "Step 9",
     "Step 10",
   ];
-  const [currentStep, updateCurrentStep] = useState(1);
-
-
-
   const updateStep = (step) => {
     updateCurrentStep(step);
+    setCurrentVideo(gameConfigurations[step - 1][0].extract);
   };
-
-  const [selected, setSelected] = useState();
 
   const handleClick = (e) => {
     setSelected(e.currentTarget.id);
     updateStep(currentStep + 1);
   };
 
-  const [fakeButton1, setFakeButton1] = useState();
-  const [fakeButton2, setFakeButton2] = useState();
-  const [fakeButton3, setFakeButton3] = useState();
-  const [fakeButton4, setFakeButton4] = useState();
+  // Ajout du premier id vidéo
+  setTimeout(() => {
+    currentVideo === ""
+      ? setCurrentVideo(gameConfigurations[0][0].extract)
+      : null;
+  }, "1000");
 
-  axios
-    .get("https://api.elie-parthenay.fr/musics")
-    // Extract the DATA from the received response
-    .then((response) => response.data)
-    // Use this data to update the state
-    .then((data) => {
-      setFakeButton1(
-        `${data.results.musics[2].title} - ${data.results.musics[2].artist}`
-      );
-      setFakeButton2(
-        `${data.results.musics[3].title} - ${data.results.musics[3].artist}`
-      );
-      setFakeButton3(
-        `${data.results.musics[4].title} - ${data.results.musics[4].artist}`
-      );
-      setFakeButton4(
-        `${data.results.musics[5].title} - ${data.results.musics[5].artist}`
-      );
-      console.warn(data.results.musics[2].title);
-    });
+  // permet d'aller fetch mon api et d'initialiser le state "apiMusicList"
+  useEffect(() => {
+    const API_TEST = "https://api.elie-parthenay.fr/musics?genre=rock";
+    const API = `https://api.elie-parthenay.fr/musics?genre=${gameGenre}`;
+    axios
+      .get(API)
+      // Extract the DATA from the received response
+      .then((res) => {
+        setGameConfiguration(getMusics(res.data.results.musics));
+        setIsLoading(false);
+      })
+      .catch((err) => console.error("Error in useEffect:", err));
+  }, []);
 
   return (
-    <>
-      <header>
-        <h1>Answer</h1>;
-      </header>
-      <main>
-        <div>
+    (isLoading && <h1> Is Loading</h1>) || (
+      <>
+        <header>
+          <h1>Answers</h1>
+        </header>
+        <main>
           <div>
             <div>
-              <StepNavigation
-                labelArray={labelArray}
-                currentStep={currentStep}
-                updateStep={updateStep}
-              />
+              <div>
+                <StepNavigation
+                  labelArray={labelArray}
+                  currentStep={currentStep}
+                  updateStep={updateStep}
+                />
+              </div>
+              <div className="buttons">
+                <Button
+                  id="1"
+                  type={`${gameConfigurations[currentStep - 1][0].artist} - ${
+                    gameConfigurations[currentStep - 1][0].title
+                  }`}
+                  onClick={handleClick}
+                  disabled={currentStep === labelArray.length}
+                  selected={selected === "1" ? "buttonClicked" : "button"}
+                />
+                <Button
+                  id="2"
+                  type={`${gameConfigurations[currentStep - 1][1].artist} - ${
+                    gameConfigurations[currentStep - 1][1].title
+                  }`}
+                  onClick={handleClick}
+                  selected={selected === "2" ? "buttonClicked" : "button"}
+                />
+                <Button
+                  id="3"
+                  type={`${gameConfigurations[currentStep - 1][2].artist} - ${
+                    gameConfigurations[currentStep - 1][2].title
+                  }`}
+                  onClick={handleClick}
+                  selected={selected === "3" ? "buttonClicked" : "button"}
+                />
+                <Button
+                  id="4"
+                  type={`${gameConfigurations[currentStep - 1][3].artist} - ${
+                    gameConfigurations[currentStep - 1][3].title
+                  }`}
+                  onClick={handleClick}
+                  selected={selected === "4" ? "buttonClicked" : "button"}
+                />
+              </div>
             </div>
             <div className="buttons">
-              <Button
-                id="1"
-                type={fakeButton1}
-                onClick={handleClick}
-                disabled={currentStep === labelArray.length}
-                selected={selected === "1" ? "buttonClicked" : "button"}
-              />
-              <Button
-                id="2"
-                type={fakeButton2}
-                onClick={handleClick}
-                selected={selected === "2" ? "buttonClicked" : "button"}
-              />
-              <Button
-                id="3"
-                type={fakeButton3}
-                onClick={handleClick}
-                selected={selected === "3" ? "buttonClicked" : "button"}
-              />
-              <Button
-                id="4"
-                type={fakeButton4}
-                onClick={handleClick}
-                selected={selected === "4" ? "buttonClicked" : "button"}
-              />
+              <Link to="/answer">
+                <ButtonRetry />
+              </Link>
+              <Link to="/home">
+                <ButtonHome />
+              </Link>
             </div>
           </div>
-          <div className="buttons">
-            <Link to="/answer">
-              <ButtonRetry />
-            </Link>
-            <Link to="/home">
-              <ButtonHome />
-            </Link>
-          </div>
-        </div>
-      </main>
-      <footer>footer</footer>
-    </>
+        </main>
+        <footer>footer</footer>
+        <LecteurMusic
+          selectedDifficulty={selectedDifficulty}
+          videoId={currentVideo}
+        />
+      </>
+    )
   );
 }
 

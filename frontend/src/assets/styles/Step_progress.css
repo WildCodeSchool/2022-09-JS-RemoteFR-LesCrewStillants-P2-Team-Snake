@@ -22,7 +22,7 @@
 
 .selected .circle {
   color: transparent;
-  background-image: url("./assets/images/hourglass.png");
+  background-image: url("../images/hourglass.png");
   background-color: #9274ae;
   border-color: #9274ae;
 }
