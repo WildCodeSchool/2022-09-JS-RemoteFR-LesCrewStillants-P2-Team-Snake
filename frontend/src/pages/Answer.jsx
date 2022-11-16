@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import axios from "axios";
 import LecteurMusic from "../components/LecteurMusic";
 import Button from "../components/Btn";
@@ -80,6 +81,22 @@ function Answer({
       <div id="answerContainer">
         <header>
           <h1>Answers</h1>
+          <div className="timer-wrapper">
+            <CountdownCircleTimer
+              isPlaying
+              duration={diffusionDuration}
+              colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+              colorsTime={[
+                diffusionDuration,
+                diffusionDuration / 2,
+                diffusionDuration / 3,
+                0,
+              ]}
+              onComplete={() => [true, 1000]}
+            >
+              {RenderTime}
+            </CountdownCircleTimer>
+          </div>
         </header>
         <main>
           <div className="circlebg" />

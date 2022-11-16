@@ -7,6 +7,7 @@ import Finish from "./pages/Finish";
 function App() {
   const [musicsGenre, setMusicsGenre] = useState("");
   const [attribButton, setAttribButton] = useState("");
+  const [diffusionDuration, setDiffusionDurantion] = useState(15);
 
   const [diffusionDuration, setDiffusionDurantion] = useState(15);
 
