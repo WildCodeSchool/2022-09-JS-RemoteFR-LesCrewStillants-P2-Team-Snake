@@ -1,10 +1,14 @@
 import YouTube from "react-youtube";
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function LecteurMusic({ videoId, selectedDifficulty }) {
+function LecteurMusic({
+  videoId,
+  selectedDifficulty,
+  diffusionDuration,
+  setDiffusionDurantion,
+}) {
   const [duration, setDuration] = useState(0);
-  const [diffusionDuration, setDiffusionDurantion] = useState(15);
 
   useEffect(() => {
     axios
@@ -26,13 +30,11 @@ function LecteurMusic({ videoId, selectedDifficulty }) {
           )
         );
 
-        if (selectedDifficulty == 3) {
+        if (selectedDifficulty > 1) {
           setDiffusionDurantion(10);
         }
       });
   }, [videoId]);
-
-  console.warn(duration);
 
   const opts = {
     height: "100",
@@ -44,8 +46,6 @@ function LecteurMusic({ videoId, selectedDifficulty }) {
       end: duration + diffusionDuration,
     },
   };
-
-  console.warn(videoId);
 
   return (
     <div>
