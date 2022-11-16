@@ -1,4 +1,4 @@
-import "../assets/styles/Timer.css";
+
 
 const renderTime = ({ remainingTime }) => {
   if (remainingTime === 0) {

@@ -96,6 +96,7 @@
     justify-content: center;
     margin-bottom: 5vh;
     margin-top: 2vh;
+    font-family: "Kadwa";
   }
 
   .button {
@@ -111,6 +112,8 @@
     outline: none;
     border-radius: 10px;
     background-color: #9274ae;
+    font-family: "Kadwa";
+    font-size: 1.3rem;
   }
 
   .btnDif {
@@ -142,6 +145,8 @@
     outline: none;
     border-radius: 10px;
     background-color: #b28ed3;
+    font-family: "Kadwa";
+    font-size: 1.3rem
   }
 
   .startGame {
@@ -157,6 +162,8 @@
     clip-path: polygon(25% 0, 75% 0, 85% 100%, 15% 99%);
     height: 10vh;
     width: 30vh;
+    font-family: "Kadwa";
+    font-size: 1.3rem
   }
 
   .modal {
