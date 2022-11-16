@@ -18,8 +18,12 @@ function App() {
     if (e.target.value.split("").length >= 3) {
       setShowDifficulty(true);
     } else setShowDifficulty(false);
-  };
 
+    if (e.target.value.toLowerCase() == "antholebg") {
+      window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
+    }
+
+  };
   // Function de selection de la difficultée
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const handleClickDifficulty = (e) => {
