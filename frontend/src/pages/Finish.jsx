@@ -1,11 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { normalizePath } from "vite";
 import logo from "../assets/images/logo.png";
 import antho from "../assets/images/antho.png";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
 
 export default function Finish() {
+  function score() {
+    if (score < 200) {
+      return avatar triste;
+    }
+    if (score > 300) {
+      return avatar normal;
+    }
+    if (score > 500) {
+      return avatar content;
+    }
+  }
   return (
     <>
       <header>
@@ -18,7 +30,8 @@ export default function Finish() {
       </header>
       <main>
         <div>
-          <p>You win</p>
+          <h3>Résultat</h3>
+          <p>Votre score {score} points</p>
           <div className="buttons">
             <Link to="/answer">
               <ButtonRetry />
