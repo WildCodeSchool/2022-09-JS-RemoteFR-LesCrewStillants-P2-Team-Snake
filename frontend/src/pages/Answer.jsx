@@ -9,6 +9,7 @@ import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
 import getMusics from "../services/getMusicsList";
 import setButtonPosition from "../services/setButtonPosition";
+import RenderTime from "../components/Timer";
 
 function Answer({
   gameGenre,
