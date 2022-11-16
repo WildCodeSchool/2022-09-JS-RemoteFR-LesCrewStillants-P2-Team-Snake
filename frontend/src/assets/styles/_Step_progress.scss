@@ -2,6 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Kadwa";
+  font-size: 1.3rem;
   width: 3.7vh;
   height: 3.7vh;
   line-height: 25px;
@@ -16,12 +18,17 @@
 
 .stepWrapper {
   display: flex;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .stepBlock .circleWrapper {
   padding: 0px 1vw;
   position: relative;
+}
+
+.inProgress .circle {
+  color: transparent;
 }
 
 .inProgress .hourglass {

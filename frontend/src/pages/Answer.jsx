@@ -207,7 +207,6 @@ function Answer({
             </div>
           </div>
         </main>
-        <footer>footer</footer>
         <LecteurMusic
           selectedDifficulty={selectedDifficulty}
           videoId={currentVideo}
