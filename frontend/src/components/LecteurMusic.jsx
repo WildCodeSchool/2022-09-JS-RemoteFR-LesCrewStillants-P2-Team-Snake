@@ -38,11 +38,11 @@ function LecteurMusic({
   }, [videoId]);
 
   const opts = {
-    height: "500",
-    width: "500",
+    height: "0",
+    width: "0",
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
-      autoplay: 0,
+      autoplay: 1,
       start: duration,
       end: duration + diffusionDuration,
     },
