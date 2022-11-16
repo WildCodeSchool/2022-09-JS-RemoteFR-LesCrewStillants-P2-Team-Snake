@@ -130,8 +130,8 @@ export default function Home(props) {
             )}
             <div>
               {selectedDifficulty &&
-              showDifficulty &&
-              selectedDifficulty != "3" ? (
+                showDifficulty &&
+                selectedDifficulty != "3" ? (
                 <div className="btnGe">
                   <Button
                     id="4"
@@ -171,7 +171,7 @@ export default function Home(props) {
                 ?
               </button>
               {(selectedGenre && selectedDifficulty && showDifficulty) ||
-              (showDifficulty && selectedDifficulty == "3") ? (
+                (showDifficulty && selectedDifficulty == "3") ? (
                 <div>
                   <Link to="/answer">
                     <StartButton id="7" className="startGame" />

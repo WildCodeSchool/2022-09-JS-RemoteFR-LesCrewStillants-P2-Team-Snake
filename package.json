@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/WildCodeSchool/2022-09-JS-RemoteFR-LesCrewStillants-P2-Team-Snake#readme",
   "dependencies": {
-    "react-countdown-circle-timer": "^3.0.9",
     "setup": "^0.0.3"
   }
 }
