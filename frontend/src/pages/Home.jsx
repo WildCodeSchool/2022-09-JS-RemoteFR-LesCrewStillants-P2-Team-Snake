@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import logo from "../assets/images/logo.png";
 import antho from "../assets/images/antho.png";
 import Button from "../components/Btn";
 import StartButton from "../components/StartButton";
+
 import "../assets/styles/Home.css";
-import axios from "axios";
 
 export default function Home(props) {
   const [showModal, setShowModal] = useState(false);

@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import axios from "axios";
 import LecteurMusic from "../components/LecteurMusic";
 import Button from "../components/Btn";
 import StepNavigation from "../components/StepNavigation";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
+import RenderTime from "../components/Timer";
 import "../assets/styles/App.css";
 import "../assets/styles/Home.css";
 import "../assets/styles/Step_progress.css";
+import "../assets/styles/Timer.css";
 import getMusics from "../services/getMusicsList";
 
-function Answer({ gameGenre, selectedDifficulty }) {
+function Answer({
+  gameGenre,
+  selectedDifficulty,
+  diffusionDuration,
+  setDiffusionDurantion,
+}) {
   // Check loading component
   const [isLoading, setIsLoading] = useState(true);
 
@@ -70,6 +78,22 @@ function Answer({ gameGenre, selectedDifficulty }) {
       <>
         <header>
           <h1>Answers</h1>
+          <div className="timer-wrapper">
+            <CountdownCircleTimer
+              isPlaying
+              duration={diffusionDuration}
+              colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+              colorsTime={[
+                diffusionDuration,
+                diffusionDuration / 2,
+                diffusionDuration / 3,
+                0,
+              ]}
+              onComplete={() => [true, 1000]}
+            >
+              {RenderTime}
+            </CountdownCircleTimer>
+          </div>
         </header>
         <main>
           <div>
@@ -131,6 +155,7 @@ function Answer({ gameGenre, selectedDifficulty }) {
         <LecteurMusic
           selectedDifficulty={selectedDifficulty}
           videoId={currentVideo}
+          diffusionDuration={diffusionDuration}
         />
       </>
     )
