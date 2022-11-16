@@ -10,6 +10,8 @@
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 .stepWrapper {
@@ -38,7 +40,8 @@
     100% 0,
     47% 0
   );
-  background-color: yellow;
+  background-color: rgb(211, 211, 34);
+  z-index: 1;
 }
 
 .stepBlock:not(:last-child) > .circleWrapper::after {
@@ -50,15 +53,5 @@
   bottom: 0px;
   background-color: #9274ae;
   margin: auto;
-  z-index: -1;
-}
-
-.primaryButton {
-  padding: 10px 25px;
-  background-color: #9274ae;
-  border: none;
-  margin: 10px;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
+  z-index: 0;
 }

@@ -115,13 +115,17 @@ function Answer({ gameGenre, selectedDifficulty }) {
                 />
               </div>
             </div>
-            <div className="buttons">
-              <Link to="/answer">
-                <ButtonRetry />
-              </Link>
-              <Link to="/home">
-                <ButtonHome />
-              </Link>
+            <div className="btns">
+              <div className="retry">
+                <Link to="/answer">
+                  <ButtonRetry />
+                </Link>
+              </div>
+              <div className="btnhome">
+                <Link to="/">
+                  <ButtonHome />
+                </Link>
+              </div>
             </div>
           </div>
         </main>
