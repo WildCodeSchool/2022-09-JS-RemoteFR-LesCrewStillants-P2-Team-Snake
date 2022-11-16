@@ -7,6 +7,9 @@ import Finish from "./pages/Finish";
 function App() {
   const [musicsGenre, setMusicsGenre] = useState("");
   const [attribButton, setAttribButton] = useState("");
+  const [diffusionDuration, setDiffusionDurantion] = useState(15);
+
+  const [diffusionDuration, setDiffusionDurantion] = useState(15);
 
   // fonction d'apparition des boutons après avoir écrit 3 caractères dans l'input text
   const [showDifficulty, setShowDifficulty] = useState(false); // Affichage des boutons de la difficultée quand le pseudo est correctement saisi
@@ -29,7 +32,7 @@ function App() {
   const [gameGenre, setGameGenre] = useState("");
   const handleClickGenre = (e) => {
     setSelectedGenre(e.currentTarget.id);
-    if (selectedDifficulty != 3) {
+    if (selectedDifficulty !== 3) {
       setGameGenre(e.currentTarget.innerHTML);
     }
   };
@@ -69,6 +72,8 @@ function App() {
               userPseudo={userPseudo}
               musicsGenre={musicsGenre}
               gameGenre={gameGenre}
+              diffusionDuration={diffusionDuration}
+              setDiffusionDurantion={setDiffusionDurantion}
             />
           }
         />
