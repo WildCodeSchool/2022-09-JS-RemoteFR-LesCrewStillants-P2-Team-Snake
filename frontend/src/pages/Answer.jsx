@@ -9,6 +9,7 @@ import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
 import getMusics from "../services/getMusicsList";
 import setButtonPosition from "../services/setButtonPosition";
+import RenderTime from "../components/Timer";
 
 function Answer({
   gameGenre,
@@ -169,13 +170,17 @@ function Answer({
                 />
               </div>
             </div>
-            <div className="buttons">
-              <Link to="/answer">
-                <ButtonRetry />
-              </Link>
-              <Link to="/home">
-                <ButtonHome />
-              </Link>
+            <div className="btns">
+              <div className="retry">
+                <Link to="/answer">
+                  <ButtonRetry />
+                </Link>
+              </div>
+              <div className="btnhome">
+                <Link to="/">
+                  <ButtonHome />
+                </Link>
+              </div>
             </div>
           </div>
         </main>
