@@ -10,6 +10,7 @@ function App() {
   const [diffusionDuration, setDiffusionDurantion] = useState(15);
   const [gameUserAnswer, setGameUserAnswer] = useState([]);
 
+
   // fonction d'apparition des boutons après avoir écrit 3 caractères dans l'input text
   const [showDifficulty, setShowDifficulty] = useState(false); // Affichage des boutons de la difficultée quand le pseudo est correctement saisi
   const [userPseudo, setUserPseudo] = useState("");
