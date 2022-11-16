@@ -17,6 +17,7 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.4.3",
     "react-youtube": "^10.0.0",
+    "sass": "^1.56.1",
     "template-fullstack": "file:.."
   },
   "devDependencies": {

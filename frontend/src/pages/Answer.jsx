@@ -7,12 +7,8 @@ import Button from "../components/Btn";
 import StepNavigation from "../components/StepNavigation";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
-import RenderTime from "../components/Timer";
-import "../assets/styles/App.css";
-import "../assets/styles/Home.css";
-import "../assets/styles/Step_progress.css";
-import "../assets/styles/Timer.css";
 import getMusics from "../services/getMusicsList";
+import setButtonPosition from "../services/setButtonPosition";
 
 function Answer({
   gameGenre,
@@ -26,6 +22,7 @@ function Answer({
   // Game configuration
   const [gameConfigurations, setGameConfiguration] = useState([]);
   const [currentVideo, setCurrentVideo] = useState("");
+  const [buttonPositionArray, setButtonPositionArray] = useState([]);
 
   // Etapes de la partie
   const [currentStep, updateCurrentStep] = useState(1);
@@ -45,18 +42,22 @@ function Answer({
   const updateStep = (step) => {
     updateCurrentStep(step);
     setCurrentVideo(gameConfigurations[step - 1][0].extract);
+    setButtonPositionArray(setButtonPosition());
   };
 
   const handleClick = (e) => {
+    if (currentStep === 10) {
+      window.location = "/finish";
+    }
     setSelected(e.currentTarget.id);
     updateStep(currentStep + 1);
   };
 
   // Ajout du premier id vidéo
   setTimeout(() => {
-    currentVideo === ""
-      ? setCurrentVideo(gameConfigurations[0][0].extract)
-      : null;
+    if (currentVideo === "") {
+      setCurrentVideo(gameConfigurations[0][0].extract);
+    }
   }, "1000");
 
   // permet d'aller fetch mon api et d'initialiser le state "apiMusicList"
@@ -68,14 +69,16 @@ function Answer({
       // Extract the DATA from the received response
       .then((res) => {
         setGameConfiguration(getMusics(res.data.results.musics));
+        setButtonPositionArray(setButtonPosition());
         setIsLoading(false);
+        console.warn("Is loading");
       })
       .catch((err) => console.error("Error in useEffect:", err));
   }, []);
 
   return (
     (isLoading && <h1> Is Loading</h1>) || (
-      <>
+      <div id="answerContainer">
         <header>
           <h1>Answers</h1>
           <div className="timer-wrapper">
@@ -96,9 +99,10 @@ function Answer({
           </div>
         </header>
         <main>
-          <div>
+          <div className="circlebg" />
+          <div className="inputs">
             <div>
-              <div>
+              <div className="navi">
                 <StepNavigation
                   labelArray={labelArray}
                   currentStep={currentStep}
@@ -108,8 +112,14 @@ function Answer({
               <div className="buttons">
                 <Button
                   id="1"
-                  type={`${gameConfigurations[currentStep - 1][0].artist} - ${
-                    gameConfigurations[currentStep - 1][0].title
+                  type={`${
+                    gameConfigurations[currentStep - 1][
+                      buttonPositionArray[0][0] - 1
+                    ].artist
+                  } - ${
+                    gameConfigurations[currentStep - 1][
+                      buttonPositionArray[0][0] - 1
+                    ].title
                   }`}
                   onClick={handleClick}
                   disabled={currentStep === labelArray.length}
@@ -117,24 +127,42 @@ function Answer({
                 />
                 <Button
                   id="2"
-                  type={`${gameConfigurations[currentStep - 1][1].artist} - ${
-                    gameConfigurations[currentStep - 1][1].title
+                  type={`${
+                    gameConfigurations[currentStep - 1][
+                      buttonPositionArray[1][0] - 1
+                    ].artist
+                  } - ${
+                    gameConfigurations[currentStep - 1][
+                      buttonPositionArray[1][0] - 1
+                    ].title
                   }`}
                   onClick={handleClick}
                   selected={selected === "2" ? "buttonClicked" : "button"}
                 />
                 <Button
                   id="3"
-                  type={`${gameConfigurations[currentStep - 1][2].artist} - ${
-                    gameConfigurations[currentStep - 1][2].title
+                  type={`${
+                    gameConfigurations[currentStep - 1][
+                      buttonPositionArray[2][0] - 1
+                    ].artist
+                  } - ${
+                    gameConfigurations[currentStep - 1][
+                      buttonPositionArray[2][0] - 1
+                    ].title
                   }`}
                   onClick={handleClick}
                   selected={selected === "3" ? "buttonClicked" : "button"}
                 />
                 <Button
                   id="4"
-                  type={`${gameConfigurations[currentStep - 1][3].artist} - ${
-                    gameConfigurations[currentStep - 1][3].title
+                  type={`${
+                    gameConfigurations[currentStep - 1][
+                      buttonPositionArray[3][0] - 1
+                    ].artist
+                  } - ${
+                    gameConfigurations[currentStep - 1][
+                      buttonPositionArray[3][0] - 1
+                    ].title
                   }`}
                   onClick={handleClick}
                   selected={selected === "4" ? "buttonClicked" : "button"}
@@ -156,8 +184,9 @@ function Answer({
           selectedDifficulty={selectedDifficulty}
           videoId={currentVideo}
           diffusionDuration={diffusionDuration}
+          setDiffusionDurantion={setDiffusionDurantion}
         />
-      </>
+      </div>
     )
   );
 }

@@ -1,10 +1,10 @@
-import "../assets/styles/Step_progress.css";
-
 export default function Step({ selected, index }) {
   return (
-    <div className={`stepBlock + ${selected ? " selected" : ""}`}>
+    <div className={`stepBlock ${selected ? "inProgress" : ""}`}>
       <div className="circleWrapper">
-        <div className="circle">{index + 1}</div>
+        <div className="circle">
+          <div className="hourglass">{index + 1}</div>
+        </div>
       </div>
     </div>
   );
