@@ -1,5 +1,4 @@
 import Step from "./Step";
-import "../assets/styles/Step_progress.css";
 
 export default function StepNavigation({
   labelArray,

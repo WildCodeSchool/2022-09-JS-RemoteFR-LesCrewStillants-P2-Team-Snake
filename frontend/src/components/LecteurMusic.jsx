@@ -35,11 +35,11 @@ function LecteurMusic({ videoId, selectedDifficulty }) {
   console.warn(duration);
 
   const opts = {
-    height: "100",
-    width: "800",
+    height: "0",
+    width: "0",
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
+      autoplay: 0,
       start: duration,
       end: duration + diffusionDuration,
     },

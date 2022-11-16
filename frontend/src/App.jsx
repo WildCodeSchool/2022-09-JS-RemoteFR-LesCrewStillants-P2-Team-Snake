@@ -55,8 +55,8 @@ function App() {
               musicsGenre={musicsGenre}
               attribButton={attribButton}
               setAttribButton={setAttribButton}
-            // gameConfiguration={gameConfiguration}
-            // setGameConfiguration={setGameConfiguration}
+              // gameConfiguration={gameConfiguration}
+              // setGameConfiguration={setGameConfiguration}
             />
           }
         />

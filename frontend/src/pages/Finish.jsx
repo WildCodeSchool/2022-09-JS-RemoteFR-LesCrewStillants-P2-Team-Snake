@@ -4,7 +4,6 @@ import logo from "../assets/images/logo.png";
 import antho from "../assets/images/antho.png";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
-import "../assets/styles/App.css";
 
 export default function Finish() {
   return (
