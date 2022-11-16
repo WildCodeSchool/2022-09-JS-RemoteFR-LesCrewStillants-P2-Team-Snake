@@ -1,13 +1,15 @@
 .circle {
-  width: 29px;
-  height: 29px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.7vh;
+  height: 3.7vh;
   line-height: 25px;
   background-color: #9274ae;
   color: white;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
-  padding-left: 7px;
 }
 
 .stepWrapper {
@@ -16,15 +18,27 @@
 }
 
 .stepBlock .circleWrapper {
-  padding: 0px 20px;
+  padding: 0px 1vw;
   position: relative;
 }
 
-.selected .circle {
-  color: transparent;
-  background-image: url("../images/hourglass.png");
-  background-color: #9274ae;
-  border-color: #9274ae;
+.inProgress .hourglass {
+  width: 2vh;
+  -webkit-clip-path: polygon(
+    0 0,
+    0 0,
+    50% 50%,
+    0 100%,
+    0 100%,
+    48% 100%,
+    100% 100%,
+    100% 100%,
+    50% 50%,
+    100% 0,
+    100% 0,
+    47% 0
+  );
+  background-color: yellow;
 }
 
 .stepBlock:not(:last-child) > .circleWrapper::after {

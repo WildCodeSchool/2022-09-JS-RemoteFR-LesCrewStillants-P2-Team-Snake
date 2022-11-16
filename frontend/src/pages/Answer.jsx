@@ -6,9 +6,6 @@ import Button from "../components/Btn";
 import StepNavigation from "../components/StepNavigation";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
-import "../assets/styles/App.css";
-import "../assets/styles/Home.css";
-import "../assets/styles/Step_progress.css";
 import getMusics from "../services/getMusicsList";
 import setButtonPosition from "../services/setButtonPosition";
 
@@ -80,14 +77,15 @@ function Answer({
 
   return (
     (isLoading && <h1> Is Loading</h1>) || (
-      <>
+      <div id="answerContainer">
         <header>
           <h1>Answers</h1>
         </header>
         <main>
-          <div>
+          <div className="circlebg" />
+          <div className="inputs">
             <div>
-              <div>
+              <div className="navi">
                 <StepNavigation
                   labelArray={labelArray}
                   currentStep={currentStep}
@@ -171,7 +169,7 @@ function Answer({
           diffusionDuration={diffusionDuration}
           setDiffusionDurantion={setDiffusionDurantion}
         />
-      </>
+      </div>
     )
   );
 }
