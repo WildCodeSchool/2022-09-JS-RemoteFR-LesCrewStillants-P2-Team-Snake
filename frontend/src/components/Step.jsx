@@ -1,9 +1,9 @@
-export default function Step({ selected, index }) {
+export default function Step({ selected, label }) {
   return (
-    <div className={`stepBlock ${selected ? "inProgress" : ""}`}>
+    <div className="stepBlock">
       <div className="circleWrapper">
         <div className="circle">
-          <div className="hourglass">{index + 1}</div>
+          <div className="hourglass">{selected ? "⏳" : label}</div>
         </div>
       </div>
     </div>

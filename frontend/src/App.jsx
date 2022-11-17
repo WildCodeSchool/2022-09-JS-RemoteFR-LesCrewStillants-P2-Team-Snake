@@ -10,7 +10,6 @@ function App() {
   const [diffusionDuration, setDiffusionDurantion] = useState(15);
   const [gameUserAnswer, setGameUserAnswer] = useState([]);
 
-
   // fonction d'apparition des boutons après avoir écrit 3 caractères dans l'input text
   const [showDifficulty, setShowDifficulty] = useState(false); // Affichage des boutons de la difficultée quand le pseudo est correctement saisi
   const [userPseudo, setUserPseudo] = useState("");
@@ -20,10 +19,10 @@ function App() {
       setShowDifficulty(true);
     } else setShowDifficulty(false);
 
-    if (e.target.value.toLowerCase() == "antholebg") {
-      window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
+    if (e.target.value.toLowerCase().toString() === "antholebg") {
+      window.location =
+        "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
     }
-
   };
   // Function de selection de la difficultée
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
@@ -84,7 +83,10 @@ function App() {
           }
         />
         <Route path="/home" element={<Home />} />
-        <Route path="/finish" element={<Finish />} />
+        <Route
+          path="/finish"
+          element={<Finish gameUserAnswer={gameUserAnswer} />}
+        />
       </Routes>
     </div>
   );

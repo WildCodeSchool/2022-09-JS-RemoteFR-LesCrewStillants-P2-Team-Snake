@@ -8,6 +8,7 @@ function LecteurMusic({
   diffusionDuration,
   setDiffusionDurantion,
   setVideoPlaying,
+  setShowButtonPlaying,
 }) {
   const [duration, setDuration] = useState(0);
 
@@ -38,8 +39,8 @@ function LecteurMusic({
   }, [videoId]);
 
   const opts = {
-    height: "0",
-    width: "0",
+    height: "5000",
+    width: "5000",
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
@@ -50,6 +51,7 @@ function LecteurMusic({
 
   function playvideo() {
     setVideoPlaying(true);
+    setShowButtonPlaying(true);
   }
 
   return (
