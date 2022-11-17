@@ -1,3 +1,4 @@
+/* eslint-disable */
 import YouTube from "react-youtube";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -23,7 +24,10 @@ function LecteurMusic({
       .then((data) => {
         setDuration(
           Math.ceil(
+            // eslint-disable-next-line no-eval
             eval(
+              // eslint-disable-line no-eval
+
               data.items[0].contentDetails.duration // 166
                 .replace("PT", "")
                 .replace("S", "")
