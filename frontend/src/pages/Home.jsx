@@ -30,6 +30,7 @@ export default function Home(props) {
       .then((data) => {
         const arr = data.results.genre;
         const prep = [];
+        // eslint-disable-next-line no-plusplus
         for (let i = 0; i < 3; i++) {
           const rands = Math.floor(Math.random() * arr.length);
           prep.push(arr[rands]);

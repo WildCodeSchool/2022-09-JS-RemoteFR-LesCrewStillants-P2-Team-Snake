@@ -118,7 +118,7 @@ function Answer({
                   setTimeout(() => {
                     updateStep(currentStep + 1);
                   }, "3000");
-                  [(true, 1000)];
+                  [(true, 1000)]; // eslint-disable-line no-unused-expressions
                 }}
               >
                 {RenderTime}
@@ -145,50 +145,58 @@ function Answer({
                 <div className="buttons">
                   <Button
                     id="1"
-                    type={`${gameConfigurations[currentStep - 1][
+                    type={`${
+                      gameConfigurations[currentStep - 1][
                         buttonPositionArray[0][0] - 1
                       ].artist
-                      } - ${gameConfigurations[currentStep - 1][
+                    } - ${
+                      gameConfigurations[currentStep - 1][
                         buttonPositionArray[0][0] - 1
                       ].title
-                      }`}
+                    }`}
                     onClick={handleClick}
                     disabled={currentStep === labelArray.length}
                     selected={selected === "1" ? "buttonClicked" : "button"}
                   />
                   <Button
                     id="2"
-                    type={`${gameConfigurations[currentStep - 1][
+                    type={`${
+                      gameConfigurations[currentStep - 1][
                         buttonPositionArray[1][0] - 1
                       ].artist
-                      } - ${gameConfigurations[currentStep - 1][
+                    } - ${
+                      gameConfigurations[currentStep - 1][
                         buttonPositionArray[1][0] - 1
                       ].title
-                      }`}
+                    }`}
                     onClick={handleClick}
                     selected={selected === "2" ? "buttonClicked" : "button"}
                   />
                   <Button
                     id="3"
-                    type={`${gameConfigurations[currentStep - 1][
+                    type={`${
+                      gameConfigurations[currentStep - 1][
                         buttonPositionArray[2][0] - 1
                       ].artist
-                      } - ${gameConfigurations[currentStep - 1][
+                    } - ${
+                      gameConfigurations[currentStep - 1][
                         buttonPositionArray[2][0] - 1
                       ].title
-                      }`}
+                    }`}
                     onClick={handleClick}
                     selected={selected === "3" ? "buttonClicked" : "button"}
                   />
                   <Button
                     id="4"
-                    type={`${gameConfigurations[currentStep - 1][
+                    type={`${
+                      gameConfigurations[currentStep - 1][
                         buttonPositionArray[3][0] - 1
                       ].artist
-                      } - ${gameConfigurations[currentStep - 1][
+                    } - ${
+                      gameConfigurations[currentStep - 1][
                         buttonPositionArray[3][0] - 1
                       ].title
-                      }`}
+                    }`}
                     onClick={handleClick}
                     selected={selected === "4" ? "buttonClicked" : "button"}
                   />

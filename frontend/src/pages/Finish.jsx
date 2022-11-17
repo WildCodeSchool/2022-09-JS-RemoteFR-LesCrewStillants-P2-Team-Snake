@@ -6,7 +6,6 @@ import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
 
 export default function Finish() {
-
   return (
     <>
       <header>
