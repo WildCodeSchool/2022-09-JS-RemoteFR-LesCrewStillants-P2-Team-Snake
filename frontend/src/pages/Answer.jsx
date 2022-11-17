@@ -35,7 +35,7 @@ function Answer({
   const [buttonPositionArray, setButtonPositionArray] = useState([]);
   // Etapes de la partie
   const [currentStep, updateCurrentStep] = useState(1);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(0);
   const [labelArray, setLabelArray] = useState([
     "1",
     "2",
@@ -81,7 +81,6 @@ function Answer({
 
   // permet d'aller fetch mon api et d'initialiser le state "apiMusicList"
   useEffect(() => {
-    // const API_TEST = "https://api.elie-parthenay.fr/musics?genre=rock";
     const API = `https://api.elie-parthenay.fr/musics?genre=${gameGenre}`;
     axios
       .get(API)
@@ -90,7 +89,6 @@ function Answer({
         setGameConfiguration(getMusics(res.data.results.musics));
         setButtonPositionArray(setButtonPosition());
         setIsLoading(false);
-        console.warn("Is loading");
       })
       .catch((err) => console.error("Error in useEffect:", err));
   }, []);
@@ -147,58 +145,50 @@ function Answer({
                 <div className="buttons">
                   <Button
                     id="1"
-                    type={`${
-                      gameConfigurations[currentStep - 1][
+                    type={`${gameConfigurations[currentStep - 1][
                         buttonPositionArray[0][0] - 1
                       ].artist
-                    } - ${
-                      gameConfigurations[currentStep - 1][
+                      } - ${gameConfigurations[currentStep - 1][
                         buttonPositionArray[0][0] - 1
                       ].title
-                    }`}
+                      }`}
                     onClick={handleClick}
                     disabled={currentStep === labelArray.length}
                     selected={selected === "1" ? "buttonClicked" : "button"}
                   />
                   <Button
                     id="2"
-                    type={`${
-                      gameConfigurations[currentStep - 1][
+                    type={`${gameConfigurations[currentStep - 1][
                         buttonPositionArray[1][0] - 1
                       ].artist
-                    } - ${
-                      gameConfigurations[currentStep - 1][
+                      } - ${gameConfigurations[currentStep - 1][
                         buttonPositionArray[1][0] - 1
                       ].title
-                    }`}
+                      }`}
                     onClick={handleClick}
                     selected={selected === "2" ? "buttonClicked" : "button"}
                   />
                   <Button
                     id="3"
-                    type={`${
-                      gameConfigurations[currentStep - 1][
+                    type={`${gameConfigurations[currentStep - 1][
                         buttonPositionArray[2][0] - 1
                       ].artist
-                    } - ${
-                      gameConfigurations[currentStep - 1][
+                      } - ${gameConfigurations[currentStep - 1][
                         buttonPositionArray[2][0] - 1
                       ].title
-                    }`}
+                      }`}
                     onClick={handleClick}
                     selected={selected === "3" ? "buttonClicked" : "button"}
                   />
                   <Button
                     id="4"
-                    type={`${
-                      gameConfigurations[currentStep - 1][
+                    type={`${gameConfigurations[currentStep - 1][
                         buttonPositionArray[3][0] - 1
                       ].artist
-                    } - ${
-                      gameConfigurations[currentStep - 1][
+                      } - ${gameConfigurations[currentStep - 1][
                         buttonPositionArray[3][0] - 1
                       ].title
-                    }`}
+                      }`}
                     onClick={handleClick}
                     selected={selected === "4" ? "buttonClicked" : "button"}
                   />

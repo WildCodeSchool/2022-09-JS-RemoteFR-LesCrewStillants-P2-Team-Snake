@@ -42,7 +42,6 @@ function LecteurMusic({
     height: "5000",
     width: "5000",
     playerVars: {
-      // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
       start: duration,
       end: duration + diffusionDuration,
