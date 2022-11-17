@@ -5,7 +5,7 @@ import antho from "../assets/images/antho.png";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
 
-export default function Finish() {
+export default function Finish({ gameUserAnswer }) {
   // function score() {
   //   if (score < 200) {
   //     return avatar triste;
@@ -17,6 +17,7 @@ export default function Finish() {
   //     return avatar content;
   //   }
   // }
+  console.warn(gameUserAnswer);
   return (
     <>
       <header>

@@ -10,6 +10,7 @@ import ButtonRetry from "../components/ButtonRetry";
 import getMusics from "../services/getMusicsList";
 import setUserAnswer from "../services/setUserAnswer";
 import setButtonPosition from "../services/setButtonPosition";
+import setStepBar from "../services/setStepBar";
 import RenderTime from "../components/Timer";
 
 function Answer({
@@ -27,26 +28,26 @@ function Answer({
 
   // Quand la musique youtube se lance
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [showButtonPlaying, setShowButtonPlaying] = useState(false);
 
   // Game configuration
   const [currentVideo, setCurrentVideo] = useState("");
   const [buttonPositionArray, setButtonPositionArray] = useState([]);
-
   // Etapes de la partie
   const [currentStep, updateCurrentStep] = useState(1);
   const [selected, setSelected] = useState();
-  const labelArray = [
-    "Step 1",
-    "Step 2",
-    "Step 3",
-    "Step 4",
-    "Step 5",
-    "Step 6",
-    "Step 7",
-    "Step 8",
-    "Step 9",
-    "Step 10",
-  ];
+  const [labelArray, setLabelArray] = useState([
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+  ]);
   const updateStep = (step) => {
     setVideoPlaying(false);
     updateCurrentStep(step);
@@ -66,6 +67,8 @@ function Answer({
         ...gameUserAnswer,
         setUserAnswer(gameConfigurations, e, currentStep),
       ]);
+
+      setLabelArray(setStepBar(labelArray, gameConfigurations, e, currentStep));
     }
   };
 
@@ -78,7 +81,7 @@ function Answer({
 
   // permet d'aller fetch mon api et d'initialiser le state "apiMusicList"
   useEffect(() => {
-    const API_TEST = "https://api.elie-parthenay.fr/musics?genre=rock";
+    // const API_TEST = "https://api.elie-parthenay.fr/musics?genre=rock";
     const API = `https://api.elie-parthenay.fr/musics?genre=${gameGenre}`;
     axios
       .get(API)
@@ -109,12 +112,21 @@ function Answer({
                   diffusionDuration / 3,
                   0,
                 ]}
-                onComplete={() => [true, 1000]}
+                onComplete={() => {
+                  setLabelArray(
+                    setStepBar(labelArray, gameConfigurations, "", currentStep)
+                  );
+                  setShowButtonPlaying(false);
+                  setTimeout(() => {
+                    updateStep(currentStep + 1);
+                  }, "3000");
+                  [(true, 1000)];
+                }}
               >
                 {RenderTime}
               </CountdownCircleTimer>
             ) : (
-              false
+              <div className="countdownLoading">Loading...</div>
             )}
           </div>
         </header>
@@ -127,9 +139,11 @@ function Answer({
                   labelArray={labelArray}
                   currentStep={currentStep}
                   updateStep={updateStep}
+                  gameUserAnswer={gameUserAnswer}
+                  gameConfigurations={gameConfigurations}
                 />
               </div>
-              {videoPlaying ? (
+              {videoPlaying && showButtonPlaying ? (
                 <div className="buttons">
                   <Button
                     id="1"
@@ -213,6 +227,7 @@ function Answer({
           diffusionDuration={diffusionDuration}
           setDiffusionDurantion={setDiffusionDurantion}
           setVideoPlaying={setVideoPlaying}
+          setShowButtonPlaying={setShowButtonPlaying}
         />
       </div>
     )
