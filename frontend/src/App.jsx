@@ -31,7 +31,7 @@ function App() {
   };
 
   // Function de selection du genre de musique
-  const [selectedGenre, setSelectedGenre] = useState();
+  const [selectedGenre, setSelectedGenre] = useState(0);
   const [gameGenre, setGameGenre] = useState("");
   const handleClickGenre = (e) => {
     setSelectedGenre(e.currentTarget.id);

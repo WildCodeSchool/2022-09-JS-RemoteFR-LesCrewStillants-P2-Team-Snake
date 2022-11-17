@@ -5,19 +5,8 @@ import antho from "../assets/images/antho.png";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
 
-export default function Finish({ gameUserAnswer }) {
-  // function score() {
-  //   if (score < 200) {
-  //     return avatar triste;
-  //   }
-  //   if (score > 300) {
-  //     return avatar normal;
-  //   }
-  //   if (score > 500) {
-  //     return avatar content;
-  //   }
-  // }
-  console.warn(gameUserAnswer);
+export default function Finish() {
+
   return (
     <>
       <header>
