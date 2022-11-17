@@ -4,7 +4,6 @@ import logo from "../assets/images/logo.png";
 import antho from "../assets/images/antho.png";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
-import "../App.css";
 
 export default function Finish() {
   return (
@@ -19,7 +18,8 @@ export default function Finish() {
       </header>
       <main>
         <div>
-          <p>You win</p>
+          <h3>Résultat</h3>
+          <p>Votre score points</p>
           <div className="buttons">
             <Link to="/answer">
               <ButtonRetry />

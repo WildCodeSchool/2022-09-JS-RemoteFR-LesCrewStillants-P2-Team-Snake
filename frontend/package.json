@@ -13,8 +13,11 @@
     "axios": "^1.1.3",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
+    "react-countdown-circle-timer": "^3.0.9",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.4.3",
+    "react-youtube": "^10.0.0",
+    "sass": "^1.56.1",
     "template-fullstack": "file:.."
   },
   "devDependencies": {

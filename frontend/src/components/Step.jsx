@@ -1,10 +1,10 @@
-import "../Step_progress.css";
-
-export default function Step({ selected, index }) {
+export default function Step({ selected, label }) {
   return (
-    <div className={`stepBlock + ${selected ? " selected" : ""}`}>
+    <div className="stepBlock">
       <div className="circleWrapper">
-        <div className="circle">{index + 1}</div>
+        <div className="circle">
+          <div className="hourglass">{selected ? "⏳" : label}</div>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,64 @@
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Kadwa";
+  font-size: 1.3rem;
+  width: 3.7vh;
+  height: 3.7vh;
+  line-height: 25px;
+  background-color: #9274ae;
+  color: white;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.stepWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.stepBlock .circleWrapper {
+  padding: 0px 1vw;
+  position: relative;
+}
+
+.inProgress .circle {
+  color: transparent;
+}
+
+.inProgress .hourglass {
+  width: 2vh;
+  -webkit-clip-path: polygon(
+    0 0,
+    0 0,
+    50% 50%,
+    0 100%,
+    0 100%,
+    48% 100%,
+    100% 100%,
+    100% 100%,
+    50% 50%,
+    100% 0,
+    100% 0,
+    47% 0
+  );
+  background-color: rgb(211, 211, 34);
+  z-index: 1;
+}
+
+.stepBlock:not(:last-child) > .circleWrapper::after {
+  content: "";
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  background-color: #9274ae;
+  margin: auto;
+  z-index: 0;
+}

@@ -1,128 +1,234 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import axios from "axios";
+import LecteurMusic from "../components/LecteurMusic";
 import Button from "../components/Btn";
 import StepNavigation from "../components/StepNavigation";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
-import "../App.css";
-import "../Step_progress.css";
+import getMusics from "../services/getMusicsList";
+import setUserAnswer from "../services/setUserAnswer";
+import setButtonPosition from "../services/setButtonPosition";
+import setStepBar from "../services/setStepBar";
+import RenderTime from "../components/Timer";
 
-function Answer(props) {
+function Answer({
+  gameGenre,
+  selectedDifficulty,
+  diffusionDuration,
+  setDiffusionDurantion,
+  gameUserAnswer,
+  setGameUserAnswer,
+  gameConfigurations,
+  setGameConfiguration,
+}) {
+  // Check loading component
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Récupération de la configuration de la partie
-  const { selectedDifficulty, selectedGenre, userPseudo } = props;
-  console.log(`Pseudo: ${userPseudo} Difficulty: ${selectedDifficulty} Genre: ${selectedGenre} `)
+  // Quand la musique youtube se lance
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [showButtonPlaying, setShowButtonPlaying] = useState(false);
 
-
-  const labelArray = [
-    "Step 1",
-    "Step 2",
-    "Step 3",
-    "Step 4",
-    "Step 5",
-    "Step 6",
-    "Step 7",
-    "Step 8",
-    "Step 9",
-    "Step 10",
-  ];
+  // Game configuration
+  const [currentVideo, setCurrentVideo] = useState("");
+  const [buttonPositionArray, setButtonPositionArray] = useState([]);
+  // Etapes de la partie
   const [currentStep, updateCurrentStep] = useState(1);
-
-
-
+  const [selected, setSelected] = useState(0);
+  const [labelArray, setLabelArray] = useState([
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+  ]);
   const updateStep = (step) => {
+    setVideoPlaying(false);
     updateCurrentStep(step);
+    setCurrentVideo(gameConfigurations[step - 1][0].extract);
+    setButtonPositionArray(setButtonPosition());
   };
-
-  const [selected, setSelected] = useState();
 
   const handleClick = (e) => {
+    if (currentStep === 10) {
+      window.location = "/finish";
+    }
     setSelected(e.currentTarget.id);
     updateStep(currentStep + 1);
+
+    if (e.currentTarget.innerHTML.toString()) {
+      setGameUserAnswer([
+        ...gameUserAnswer,
+        setUserAnswer(gameConfigurations, e, currentStep),
+      ]);
+
+      setLabelArray(setStepBar(labelArray, gameConfigurations, e, currentStep));
+    }
   };
 
-  const [fakeButton1, setFakeButton1] = useState();
-  const [fakeButton2, setFakeButton2] = useState();
-  const [fakeButton3, setFakeButton3] = useState();
-  const [fakeButton4, setFakeButton4] = useState();
+  // Ajout du premier id vidéo
+  setTimeout(() => {
+    if (currentVideo === "") {
+      setCurrentVideo(gameConfigurations[0][0].extract);
+    }
+  }, "1000");
 
-  axios
-    .get("https://api.elie-parthenay.fr/musics")
-    // Extract the DATA from the received response
-    .then((response) => response.data)
-    // Use this data to update the state
-    .then((data) => {
-      setFakeButton1(
-        `${data.results.musics[2].title} - ${data.results.musics[2].artist}`
-      );
-      setFakeButton2(
-        `${data.results.musics[3].title} - ${data.results.musics[3].artist}`
-      );
-      setFakeButton3(
-        `${data.results.musics[4].title} - ${data.results.musics[4].artist}`
-      );
-      setFakeButton4(
-        `${data.results.musics[5].title} - ${data.results.musics[5].artist}`
-      );
-      console.warn(data.results.musics[2].title);
-    });
+  // permet d'aller fetch mon api et d'initialiser le state "apiMusicList"
+  useEffect(() => {
+    const API = `https://api.elie-parthenay.fr/musics?genre=${gameGenre}`;
+    axios
+      .get(API)
+      // Extract the DATA from the received response
+      .then((res) => {
+        setGameConfiguration(getMusics(res.data.results.musics));
+        setButtonPositionArray(setButtonPosition());
+        setIsLoading(false);
+      })
+      .catch((err) => console.error("Error in useEffect:", err));
+  }, []);
 
   return (
-    <>
-      <header>
-        <h1>Answer</h1>;
-      </header>
-      <main>
-        <div>
-          <div>
+    (isLoading && <h1> Is Loading</h1>) || (
+      <div id="answerContainer">
+        <header>
+          <h1>Answers</h1>
+          <div className="timer-wrapper">
+            {videoPlaying ? (
+              <CountdownCircleTimer
+                isPlaying
+                duration={diffusionDuration}
+                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                colorsTime={[
+                  diffusionDuration,
+                  diffusionDuration / 2,
+                  diffusionDuration / 3,
+                  0,
+                ]}
+                onComplete={() => {
+                  setLabelArray(
+                    setStepBar(labelArray, gameConfigurations, "", currentStep)
+                  );
+                  setShowButtonPlaying(false);
+                  setTimeout(() => {
+                    updateStep(currentStep + 1);
+                  }, "3000");
+                  [(true, 1000)]; // eslint-disable-line no-unused-expressions
+                }}
+              >
+                {RenderTime}
+              </CountdownCircleTimer>
+            ) : (
+              <div className="countdownLoading">Loading...</div>
+            )}
+          </div>
+        </header>
+        <main>
+          <div className="circlebg" />
+          <div className="inputs">
             <div>
-              <StepNavigation
-                labelArray={labelArray}
-                currentStep={currentStep}
-                updateStep={updateStep}
-              />
+              <div className="navi">
+                <StepNavigation
+                  labelArray={labelArray}
+                  currentStep={currentStep}
+                  updateStep={updateStep}
+                  gameUserAnswer={gameUserAnswer}
+                  gameConfigurations={gameConfigurations}
+                />
+              </div>
+              {videoPlaying && showButtonPlaying ? (
+                <div className="buttons">
+                  <Button
+                    id="1"
+                    type={`${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[0][0] - 1
+                      ].artist
+                    } - ${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[0][0] - 1
+                      ].title
+                    }`}
+                    onClick={handleClick}
+                    disabled={currentStep === labelArray.length}
+                    selected={selected === "1" ? "buttonClicked" : "button"}
+                  />
+                  <Button
+                    id="2"
+                    type={`${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[1][0] - 1
+                      ].artist
+                    } - ${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[1][0] - 1
+                      ].title
+                    }`}
+                    onClick={handleClick}
+                    selected={selected === "2" ? "buttonClicked" : "button"}
+                  />
+                  <Button
+                    id="3"
+                    type={`${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[2][0] - 1
+                      ].artist
+                    } - ${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[2][0] - 1
+                      ].title
+                    }`}
+                    onClick={handleClick}
+                    selected={selected === "3" ? "buttonClicked" : "button"}
+                  />
+                  <Button
+                    id="4"
+                    type={`${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[3][0] - 1
+                      ].artist
+                    } - ${
+                      gameConfigurations[currentStep - 1][
+                        buttonPositionArray[3][0] - 1
+                      ].title
+                    }`}
+                    onClick={handleClick}
+                    selected={selected === "4" ? "buttonClicked" : "button"}
+                  />
+                </div>
+              ) : (
+                false
+              )}
             </div>
-            <div className="buttons">
-              <Button
-                id="1"
-                type={fakeButton1}
-                onClick={handleClick}
-                disabled={currentStep === labelArray.length}
-                selected={selected === "1" ? "buttonClicked" : "button"}
-              />
-              <Button
-                id="2"
-                type={fakeButton2}
-                onClick={handleClick}
-                selected={selected === "2" ? "buttonClicked" : "button"}
-              />
-              <Button
-                id="3"
-                type={fakeButton3}
-                onClick={handleClick}
-                selected={selected === "3" ? "buttonClicked" : "button"}
-              />
-              <Button
-                id="4"
-                type={fakeButton4}
-                onClick={handleClick}
-                selected={selected === "4" ? "buttonClicked" : "button"}
-              />
+            <div className="btns">
+              <div className="retry">
+                <Link to="/answer">
+                  <ButtonRetry />
+                </Link>
+              </div>
+              <div className="btnhome">
+                <Link to="/">
+                  <ButtonHome />
+                </Link>
+              </div>
             </div>
           </div>
-          <div className="buttons">
-            <Link to="/answer">
-              <ButtonRetry />
-            </Link>
-            <Link to="/home">
-              <ButtonHome />
-            </Link>
-          </div>
-        </div>
-      </main>
-      <footer>footer</footer>
-    </>
+        </main>
+        <LecteurMusic
+          selectedDifficulty={selectedDifficulty}
+          videoId={currentVideo}
+          diffusionDuration={diffusionDuration}
+          setDiffusionDurantion={setDiffusionDurantion}
+          setVideoPlaying={setVideoPlaying}
+          setShowButtonPlaying={setShowButtonPlaying}
+        />
+      </div>
+    )
   );
 }
 
