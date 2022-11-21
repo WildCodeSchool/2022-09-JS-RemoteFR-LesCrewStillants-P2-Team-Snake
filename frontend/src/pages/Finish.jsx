@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import antho from "../assets/images/antho.png";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
 
-export default function Finish() {
+export default function Finish({ gameConfigurations }) {
+  const [userResult, setUserResult] = useState([]);
+  const [userResultScore, setUserResultSocre] = useState(0);
+  const [avatarAnthony, setAvatarAnthony] = useState(antho);
+
+  useEffect(() => {
+    setUserResultSocre(
+      JSON.parse(localStorage.getItem("gameUserAnswer")).filter(
+        (item) => item.goodAnswer === true
+      ).length
+    );
+    setUserResult(JSON.parse(localStorage.getItem("gameUserAnswer")));
+    if (gameConfigurations.length === 0) {
+      window.location = "/";
+    } else {
+      setAvatarAnthony("antho");
+    }
+  }, []);
+
   return (
     <>
       <header>
@@ -13,13 +31,40 @@ export default function Finish() {
           <img className="logo" alt="backgroundimage" src={logo} />
         </h1>
         <h2>
-          <img className="antho" alt="avatar formateur" src={antho} />
+          <img className="antho" alt="avatar formateur" src={avatarAnthony} />
         </h2>
       </header>
       <main>
         <div>
           <h3>Résultat</h3>
-          <p>Votre score points</p>
+          <p>Votre score points: {userResultScore} / 10 </p>
+          <div>
+            <h3>Résumé de la partie</h3>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Step</th>
+                    <th>Title - Artist</th>
+                    <th>Your anwer</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {userResult.length > 0
+                    ? gameConfigurations.map((step, index) => (
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{`${step[0].artist} - ${step[0].title} - ${userResult[0].answer}`}</td>
+                          <td>{userResult[index].answer}</td>
+                          <td>{userResult[index].goodAnswer ? "✅" : "❌"}</td>
+                        </tr>
+                      ))
+                    : false}
+                </tbody>
+              </table>
+            </div>
+          </div>
           <div className="buttons">
             <Link to="/answer">
               <ButtonRetry />

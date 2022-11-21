@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import React, { useState } from "react";
 import Answer from "./pages/Answer";
 import Home from "./pages/Home";
@@ -8,7 +8,7 @@ function App() {
   const [musicsGenre, setMusicsGenre] = useState("");
   const [attribButton, setAttribButton] = useState("");
   const [diffusionDuration, setDiffusionDurantion] = useState(15);
-  const [gameUserAnswer, setGameUserAnswer] = useState([]);
+  const [currentStep, updateCurrentStep] = useState(1);
 
   // fonction d'apparition des boutons après avoir écrit 3 caractères dans l'input text
   const [showDifficulty, setShowDifficulty] = useState(false); // Affichage des boutons de la difficultée quand le pseudo est correctement saisi
@@ -67,25 +67,34 @@ function App() {
         <Route
           path="/answer"
           element={
-            <Answer
-              selectedDifficulty={selectedDifficulty}
-              selectedGenre={selectedGenre}
-              userPseudo={userPseudo}
-              musicsGenre={musicsGenre}
-              gameGenre={gameGenre}
-              diffusionDuration={diffusionDuration}
-              setDiffusionDurantion={setDiffusionDurantion}
-              gameUserAnswer={gameUserAnswer}
-              setGameUserAnswer={setGameUserAnswer}
-              gameConfigurations={gameConfigurations}
-              setGameConfiguration={setGameConfiguration}
-            />
+            currentStep === 11 ? (
+              <Navigate to="/finish" />
+            ) : (
+              <Answer
+                selectedDifficulty={selectedDifficulty}
+                selectedGenre={selectedGenre}
+                userPseudo={userPseudo}
+                musicsGenre={musicsGenre}
+                gameGenre={gameGenre}
+                diffusionDuration={diffusionDuration}
+                setDiffusionDurantion={setDiffusionDurantion}
+                gameConfigurations={gameConfigurations}
+                setGameConfiguration={setGameConfiguration}
+                currentStep={currentStep}
+                updateCurrentStep={updateCurrentStep}
+              />
+            )
           }
         />
         <Route path="/home" element={<Home />} />
         <Route
           path="/finish"
-          element={<Finish gameUserAnswer={gameUserAnswer} />}
+          element={
+            <Finish
+              gameConfigurations={gameConfigurations}
+              setGameConfiguration={setGameConfiguration}
+            />
+          }
         />
       </Routes>
     </div>
