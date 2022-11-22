@@ -8,9 +8,7 @@
   }
 
   main {
-    display: flex;
-    justify-content: center;
-    height: 40vh;
+    height: 45vh;
     background-color: #585858;
     position: relative;
     z-index: 1;
@@ -84,18 +82,21 @@
     background-color: #9274ae;
     font-family: "Kadwa";
     font-size: 2rem;
+    margin-top: 2vh;
   }
 
   .score {
     font-family: "Kadwa";
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     max-width: 20vh;
     color: white;
+    text-align: center;
   }
 
   .scoreboard {
     display: flex;
-
+    flex-direction: column;
+    align-items: center;
   }
 
   .result {
@@ -143,7 +144,7 @@
 
   .btns {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     position: relative;
     z-index: 1;
     margin-top: 4vh;

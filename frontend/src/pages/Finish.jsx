@@ -70,7 +70,7 @@ export default function Finish({ gameConfigurations }) {
         <div>
           <div className="scoreboard">
             <h1 className="score">
-              Your score is : {userResultScore}/10, recap ➡️
+              Your score is : {userResultScore}/10, recap : ⬇️
             </h1>
             <div>
               <button
