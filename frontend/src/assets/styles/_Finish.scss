@@ -1,35 +1,56 @@
 #finish {
-  header {
-    background-image: url("./assets/images/background_image2.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 60vh;
-    width: 100%;
-  }
+  height: 100vh;
+
   html,
   body,
   h1 {
     margin: 0;
   }
 
-  .App {
-    height: 100vh;
+  main {
+    display: flex;
+    justify-content: center;
+    height: 40vh;
+    background-color: #585858;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    background-image: url("./assets/images/background_image2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 55vh;
+    width: 100%;
+    position: relative;
+    z-index: -4;
+  }
+
+  .bulle {
+    width: 20vh;
+    height: 20vh;
+    position: absolute;
+    top: 16vh;
+    left: 23vh;
+    z-index: -1;
+  }
+
+  .headerelements {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
   }
 
-  #root {
-    width: -webkit-fill-available;
-    height: 100vh;
-  }
-
-  body {
+  .sentence {
     display: flex;
     justify-content: center;
-    background-color: #585858;
+    margin-left: 18vh;
+    font-family: "Kadwa";
+    color: rgb(0, 0, 0);
+    font-size: 2rem;
+    font-weight: bold;
   }
 
   .logo {
@@ -37,17 +58,7 @@
     height: fit-content;
   }
 
-  .avatar {
-    display: flex;
-  }
-
-  .antho {
-    height: 40vh;
-    z-index: 0;
-    margin: -10vh;
-  }
-
-  h1 {
+  .bgimg {
     display: flex;
     height: 10vh;
     align-items: center;
@@ -58,38 +69,76 @@
     justify-content: center;
   }
 
+  .buttonsb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vh;
+    height: 10vh;
+    filter: drop-shadow(0 -5px 5px #585858);
+    box-shadow: inset 0 -10px 0 #5c4373;
+    border: 2px solid;
+    border-top: none;
+    outline: none;
+    border-radius: 50px;
+    background-color: #9274ae;
+    font-family: "Kadwa";
+    font-size: 2rem;
+  }
+
+  .score {
+    font-family: "Kadwa";
+    font-size: 1.7rem;
+    max-width: 20vh;
+    color: white;
+  }
+
+  .scoreboard {
+    display: flex;
+
+  }
+
   .result {
     display: flex;
     justify-content: center;
     color: white;
-    font-weight: "Kadwa";
+    font-family: "Kadwa";
+    font-weight: bold;
     font-size: 3rem;
-  }
-
-  .scoreboard {
-    display: none;
   }
 
   .retry {
     display: flex;
-    justify-content: center;
     align-items: center;
-    border-radius: 50%;
+    justify-content: center;
+    width: 10vh;
+    height: 10vh;
+    filter: drop-shadow(0 -5px 5px #585858);
+    box-shadow: inset 0 -10px 0 #5c4373;
+    border: 2px solid;
+    border-top: none;
+    outline: none;
+    border-radius: 50px;
     background-color: #9274ae;
-    height: 7vh;
-    width: 7vh;
     font-family: "Kadwa";
-    font-size: 1.3rem;
+    font-size: 2rem;
   }
 
   .btnhome {
     display: flex;
-    justify-content: center;
     align-items: center;
-    border-radius: 50%;
+    justify-content: center;
+    width: 10vh;
+    height: 10vh;
+    filter: drop-shadow(0 -5px 5px #585858);
+    box-shadow: inset 0 -10px 0 #5c4373;
+    border: 2px solid;
+    border-top: none;
+    outline: none;
+    border-radius: 50px;
     background-color: #9274ae;
-    height: 7vh;
-    width: 7vh;
+    font-family: "Kadwa";
+    font-size: 2rem;
   }
 
   .btns {
@@ -98,5 +147,27 @@
     position: relative;
     z-index: 1;
     margin-top: 4vh;
+  }
+
+  .tr {
+    font-family: "Kadwa";
+    font-size: 1.5rem;
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5vh;
+    height: 5vh;
+    filter: drop-shadow(0 -5px 5px #585858);
+    box-shadow: inset 0 -10px 0 #5c4373;
+    border: 2px solid;
+    border-top: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: #9274ae;
+    font-family: "Kadwa";
+    font-size: 1rem;
   }
 }

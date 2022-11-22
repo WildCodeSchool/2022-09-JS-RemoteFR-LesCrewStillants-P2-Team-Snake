@@ -9,7 +9,7 @@ function ButtonRetry() {
   return (
     <div>
       <button onClick={hundleClick} type="button">
-       🔄️
+        🔄️
       </button>
     </div>
   );
