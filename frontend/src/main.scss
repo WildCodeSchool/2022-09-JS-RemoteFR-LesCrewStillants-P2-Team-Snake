@@ -1,5 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import "./assets/styles/Home";
 @import "./assets/styles/Answer";
 @import "./assets/styles/Step_progress";
 @import "./assets/styles/Timer";
 @import "./assets/styles/Finish";
+
+#root {
+  width: -webkit-fill-available;
+  height: 100vh;
+}
+
+.App {
+  height: 100vh;
+}
