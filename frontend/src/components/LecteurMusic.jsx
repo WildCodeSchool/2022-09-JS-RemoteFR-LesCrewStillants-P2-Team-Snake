@@ -5,7 +5,6 @@ import axios from "axios";
 
 function LecteurMusic({
   videoId,
-  selectedDifficulty,
   diffusionDuration,
   setDiffusionDurantion,
   setVideoPlaying,
@@ -14,33 +13,37 @@ function LecteurMusic({
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=AIzaSyAMVJZ9qc7mcB3XLT3xb3N6fon2LuwPypE`
-      )
-      // Extract the DATA from the received response
-      .then((response) => response.data)
-      // Use this data to update the state
-      .then((data) => {
-        setDuration(
-          Math.ceil(
-            // eslint-disable-next-line no-eval
-            eval(
-              // eslint-disable-line no-eval
+    if (videoId) {
+      axios
+        .get(
+          `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=${
+            import.meta.env.YOUTUBE_DATA_API_KEY
+          }`
+        )
+        // Extract the DATA from the received response
+        .then((response) => response.data)
+        // Use this data to update the state
+        .then((data) => {
+          setDuration(
+            Math.ceil(
+              // eslint-disable-next-line no-eval
+              eval(
+                // eslint-disable-line no-eval
 
-              data.items[0].contentDetails.duration // 166
-                .replace("PT", "")
-                .replace("S", "")
-                .replace("M", "*60+")
-            ) / 2
-          )
-        );
+                data.items[0].contentDetails.duration // 166
+                  .replace("PT", "")
+                  .replace("S", "")
+                  .replace("M", "*60+")
+              ) / 2
+            )
+          );
+        });
+    }
+  }, []);
 
-        if (selectedDifficulty > 1) {
-          setDiffusionDurantion(10);
-        }
-      });
-  }, [videoId]);
+  if (JSON.parse(localStorage.getItem("userDifficulty")) > 1) {
+    setDiffusionDurantion(10);
+  }
 
   const opts = {
     height: "5000",
