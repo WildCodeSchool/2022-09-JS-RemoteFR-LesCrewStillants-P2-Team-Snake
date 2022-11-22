@@ -1,7 +1,7 @@
 function ButtonRetry() {
   return (
     <div>
-      <button type="button">Retry</button>
+      <button type="button">🔄️</button>
     </div>
   );
 }

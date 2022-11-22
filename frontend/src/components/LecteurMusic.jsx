@@ -43,8 +43,8 @@ function LecteurMusic({
   }, [videoId]);
 
   const opts = {
-    height: "5000",
-    width: "5000",
+    height: "0",
+    width: "0",
     playerVars: {
       autoplay: 1,
       start: duration,
