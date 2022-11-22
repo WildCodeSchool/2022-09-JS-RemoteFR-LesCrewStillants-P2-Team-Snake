@@ -11,6 +11,31 @@ export default function Finish({ gameConfigurations }) {
   const [avatarAnthony, setAvatarAnthony] = useState(antho);
   const [showModal, setShowModal] = useState(false);
 
+  const avatar = (Score) => {
+    if (Score <= 3) {
+      return (
+        <>
+          <p>bad</p>
+          <img className="antho" src={antho} alt="antho" />
+        </>
+      );
+    }
+    if (Score <= 7 && Score > 3) {
+      return (
+        <>
+          <p>not bad</p>
+          <img className="antho" src={antho} alt="antho" />
+        </>
+      );
+    }
+    return (
+      <>
+        <p>Good</p>
+        <img className="antho" src={antho} alt="antho" />
+      </>
+    );
+  };
+
   useEffect(() => {
     setUserResultSocre(
       JSON.parse(localStorage.getItem("gameUserAnswer")).filter(
@@ -26,19 +51,16 @@ export default function Finish({ gameConfigurations }) {
   }, []);
 
   return (
-    <>
+    <div id="finish">
       <header>
         <h1>
           <img className="logo" alt="backgroundimage" src={logo} />
         </h1>
-        <h2>
-          <img className="antho" alt="avatar formateur" src={avatarAnthony} />
-        </h2>
+        <h2 className="result">Results</h2>
+        <p className="avatar">{avatar(userResultScore)}</p>
       </header>
       <main>
         <div>
-          <h3>Résultat</h3>
-          <p>Votre score points: {userResultScore} / 10 </p>
           <div>
             <button type="button" onClick={() => setShowModal(!showModal)}>
               Game recap
@@ -76,17 +98,20 @@ export default function Finish({ gameConfigurations }) {
               ) : null}
             </div>
           </div>
-          <div className="buttons">
-            <Link to="/answer">
-              <ButtonRetry />
-            </Link>
-            <Link to="/home">
-              <ButtonHome />
-            </Link>
+          <div className="btns">
+            <div className="retry">
+              <Link to="/answer">
+                <ButtonRetry />
+              </Link>
+            </div>
+            <div className="btnhome">
+              <Link to="/">
+                <ButtonHome />
+              </Link>
+            </div>
           </div>
         </div>
       </main>
-      <footer>footer</footer>
-    </>
+    </div>
   );
 }

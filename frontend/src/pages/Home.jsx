@@ -50,7 +50,7 @@ export default function Home(props) {
           <div className="relative w-auto my-6 mx-auto max-w-3xl">
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                <h3 className="text-3xl font-semibold">Règle du jeu</h3>
+                <h3 className="text-3xl font-semibold">Rules</h3>
                 <button
                   className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                   onClick={() => setShowModal(false)}
@@ -64,11 +64,11 @@ export default function Home(props) {
               {/* body */}
               <div className="relative p-6 flex-auto">
                 <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Perspiciatis nisi reprehenderit saepe tenetur, perferendis
-                  eligendi quae esse similique voluptas illo animi distinctio
-                  inventore modi laudantium accusantium recusandae atque optio
-                  numquam.
+                  Blindtest, four songs and only one right answer. First choose
+                  your difficulty: easy, medium, or hard. For easy and medium
+                  you get to pick your music style. You have 15 seconds to
+                  answer in easy and 10 seconds in medium and hard. So, are you
+                  a music master, like 'Antholegb' ? Good luck
                 </p>
               </div>
               {/* footer */}
@@ -118,7 +118,7 @@ export default function Home(props) {
                 />
                 <Button
                   id="2"
-                  type="Normal"
+                  type="Medium"
                   onClick={handleClickDifficulty}
                   selected={
                     selectedDifficulty === "2" ? "buttonClicked" : "button"
