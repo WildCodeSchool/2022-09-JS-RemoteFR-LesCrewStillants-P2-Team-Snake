@@ -18,6 +18,7 @@ export default function Home(props) {
     setMusicsGenre,
     attribButton,
     setAttribButton,
+    userPseudo,
   } = props;
 
   // Récupération des différents genres
@@ -36,6 +37,7 @@ export default function Home(props) {
           prep.push(arr[rands]);
           arr.splice(rands, 1);
         }
+
         setAttribButton(prep);
         setMusicsGenre(data.results.genre);
       });
@@ -95,7 +97,12 @@ export default function Home(props) {
         <div className="circles" />
         <div className="inputs">
           <div className="txt">
-            <input type="text" placeholder="Pseudo" onChange={changePseudo} />
+            <input
+              type="text"
+              value={userPseudo}
+              placeholder="Pseudo"
+              onChange={changePseudo}
+            />
           </div>
 
           <div className="Btns">
@@ -132,7 +139,8 @@ export default function Home(props) {
             <div>
               {selectedDifficulty &&
               showDifficulty &&
-              +selectedDifficulty !== 3 ? (
+              +selectedDifficulty !== 3 &&
+              attribButton ? (
                 <div className="btnGe">
                   <Button
                     id="4"
