@@ -9,6 +9,7 @@ export default function Finish({ gameConfigurations }) {
   const [userResult, setUserResult] = useState([]);
   const [userResultScore, setUserResultSocre] = useState(0);
   const [avatarAnthony, setAvatarAnthony] = useState(antho);
+  const [showModal, setShowModal] = useState(false);
 
   const avatar = (Score) => {
     if (Score <= 3) {
@@ -61,28 +62,41 @@ export default function Finish({ gameConfigurations }) {
       <main>
         <div>
           <div>
-            <table className="scoreboard">
-              <thead>
-                <tr>
-                  <th>Step</th>
-                  <th>Title - Artist</th>
-                  <th>Your anwer</th>
-                  <th>Result</th>
-                </tr>
-              </thead>
-              <tbody>
-                {userResult.length > 0
-                  ? gameConfigurations.map((step, index) => (
-                      <tr>
-                        <td>{index + 1}</td>
-                        <td>{`${step[0].artist} - ${step[0].title} - ${userResult[0].answer}`}</td>
-                        <td>{userResult[index].answer}</td>
-                        <td>{userResult[index].goodAnswer ? "✅" : "❌"}</td>
-                      </tr>
-                    ))
-                  : false}
-              </tbody>
-            </table>
+            <button type="button" onClick={() => setShowModal(!showModal)}>
+              Game recap
+            </button>
+            <div>
+              {showModal ? (
+                <div>
+                  <div>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Step</th>
+                          <th>Title - Artist</th>
+                          <th>Your anwer</th>
+                          <th>Result</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {userResult.length > 0
+                          ? gameConfigurations.map((step, index) => (
+                              <tr>
+                                <td>{index + 1}</td>
+                                <td>{`${step[0].artist} - ${step[0].title} - ${userResult[0].answer}`}</td>
+                                <td>{userResult[index].answer}</td>
+                                <td>
+                                  {userResult[index].goodAnswer ? "✅" : "❌"}
+                                </td>
+                              </tr>
+                            ))
+                          : false}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+            </div>
           </div>
           <div className="btns">
             <div className="retry">

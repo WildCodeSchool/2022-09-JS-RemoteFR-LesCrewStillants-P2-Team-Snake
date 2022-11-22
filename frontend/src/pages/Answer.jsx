@@ -15,8 +15,6 @@ import setStepBar from "../services/setStepBar";
 import RenderTime from "../components/Timer";
 
 function Answer({
-  gameGenre,
-  selectedDifficulty,
   diffusionDuration,
   setDiffusionDurantion,
   gameConfigurations,
@@ -58,9 +56,6 @@ function Answer({
 
   // Lorque l'utilisateur clique sur une réponse
   const handleClick = (e) => {
-    // La musique s'arrete
-    setVideoPlaying(false);
-
     /*
      * DEBUG TOTAL
      */
@@ -78,6 +73,9 @@ function Answer({
      * END DEBUG TOTAL
      */
 
+    // La musique s'arrete
+    setVideoPlaying(false);
+
     // Passage à l'étape suivante, modification de l'id vidéo & changement de la progress bar
     updateStep(
       currentStep + 1,
@@ -88,11 +86,10 @@ function Answer({
       setButtonPosition
     );
 
+    // Si nous avons bien un event sur le bouton cliqué, alors nous modifion le state
     if (e !== "") {
-      // Enregistre le bouton cliqué par l'utilisateur
       setSelected(e.currentTarget.id);
     }
-
     if (e === "" || e.currentTarget.innerHTML.toString()) {
       setUserAnswer(gameConfigurations, e, currentStep);
       setLabelArray(setStepBar(labelArray, gameConfigurations, e, currentStep));
@@ -111,7 +108,9 @@ function Answer({
     // Supression de l'ancien tableau résultat user localstorage
     localStorage.removeItem("gameUserAnswer");
 
-    const API = `https://api.elie-parthenay.fr/musics?genre=${gameGenre}`;
+    const API = `https://api.elie-parthenay.fr/musics?genre=${JSON.parse(
+      localStorage.getItem("userGenre")
+    )}`;
     axios
       .get(API)
       // Extract the DATA from the received response
@@ -251,7 +250,6 @@ function Answer({
           </div>
         </main>
         <LecteurMusic
-          selectedDifficulty={selectedDifficulty}
           videoId={currentVideo}
           diffusionDuration={diffusionDuration}
           setDiffusionDurantion={setDiffusionDurantion}
