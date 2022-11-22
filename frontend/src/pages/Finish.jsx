@@ -9,6 +9,7 @@ export default function Finish({ gameConfigurations }) {
   const [userResult, setUserResult] = useState([]);
   const [userResultScore, setUserResultSocre] = useState(0);
   const [avatarAnthony, setAvatarAnthony] = useState(antho);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setUserResultSocre(
@@ -39,30 +40,40 @@ export default function Finish({ gameConfigurations }) {
           <h3>Résultat</h3>
           <p>Votre score points: {userResultScore} / 10 </p>
           <div>
-            <h3>Résumé de la partie</h3>
+            <button type="button" onClick={() => setShowModal(!showModal)}>
+              Game recap
+            </button>
             <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Step</th>
-                    <th>Title - Artist</th>
-                    <th>Your anwer</th>
-                    <th>Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {userResult.length > 0
-                    ? gameConfigurations.map((step, index) => (
+              {showModal ? (
+                <div>
+                  <div>
+                    <table>
+                      <thead>
                         <tr>
-                          <td>{index + 1}</td>
-                          <td>{`${step[0].artist} - ${step[0].title} - ${userResult[0].answer}`}</td>
-                          <td>{userResult[index].answer}</td>
-                          <td>{userResult[index].goodAnswer ? "✅" : "❌"}</td>
+                          <th>Step</th>
+                          <th>Title - Artist</th>
+                          <th>Your anwer</th>
+                          <th>Result</th>
                         </tr>
-                      ))
-                    : false}
-                </tbody>
-              </table>
+                      </thead>
+                      <tbody>
+                        {userResult.length > 0
+                          ? gameConfigurations.map((step, index) => (
+                              <tr>
+                                <td>{index + 1}</td>
+                                <td>{`${step[0].artist} - ${step[0].title} - ${userResult[0].answer}`}</td>
+                                <td>{userResult[index].answer}</td>
+                                <td>
+                                  {userResult[index].goodAnswer ? "✅" : "❌"}
+                                </td>
+                              </tr>
+                            ))
+                          : false}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="buttons">
