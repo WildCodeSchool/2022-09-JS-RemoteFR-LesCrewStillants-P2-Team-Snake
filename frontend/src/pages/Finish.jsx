@@ -72,7 +72,7 @@ export default function Finish({ gameConfigurations }) {
           setMessage("You can do better !");
           break;
         case 4:
-          setMessage("One more effort !");
+          setMessage("Be better next time !");
           break;
         case 5:
           setMessage("Not bad !");

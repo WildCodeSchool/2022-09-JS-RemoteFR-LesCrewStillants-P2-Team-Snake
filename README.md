@@ -39,7 +39,11 @@ At any time, you can return to the home page or restart the game.
 ### Dependancies
  - Axios
  - React-countdown-circle-timer
+ - React-router-dom
  - React-youtube
+ - React-fontawesome
+ - Sass
+ - TailWind
 
 ### API
 The API was created specifically for the application : 
