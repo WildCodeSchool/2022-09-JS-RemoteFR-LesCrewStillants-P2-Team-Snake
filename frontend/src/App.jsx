@@ -1,47 +1,97 @@
-import { Routes, Route } from "react-router-dom";
-import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Answer from "./pages/Answer";
 import Home from "./pages/Home";
 import Finish from "./pages/Finish";
 
 function App() {
+  // Récupération de tout les genres de musique de l'api
   const [musicsGenre, setMusicsGenre] = useState("");
-  const [attribButton, setAttribButton] = useState("");
-  const [diffusionDuration, setDiffusionDurantion] = useState(15);
-  const [gameUserAnswer, setGameUserAnswer] = useState([]);
 
-  // fonction d'apparition des boutons après avoir écrit 3 caractères dans l'input text
-  const [showDifficulty, setShowDifficulty] = useState(false); // Affichage des boutons de la difficultée quand le pseudo est correctement saisi
+  // Tableau des 3 catégories a affciher sur les boutons de la page home
+  const [attribButton, setAttribButton] = useState("");
+
+  // Durée de diffusion de la musique
+  const [diffusionDuration, setDiffusionDurantion] = useState(15);
+
+  // Etape actuelle de la partie
+  const [currentStep, updateCurrentStep] = useState(1);
+
+  // Pseudo de l'utilisateur
   const [userPseudo, setUserPseudo] = useState("");
+
+  // Vérifie si une dificultée à été choisi par l'utilisateur
+  const [showDifficulty, setShowDifficulty] = useState(false);
+
+  // Difficultée choisie par l'utilisateur
+  const [selectedDifficulty, setSelectedDifficulty] = useState("");
+
+  // Genre choisi par l'utilisateur
+  const [selectedGenre, setSelectedGenre] = useState(0);
+
+  // Tableau de la configuration de la partie
+  const [gameConfigurations, setGameConfiguration] = useState([]);
+
+  // changement de value dans l'input pseudo
   const changePseudo = (e) => {
+    // Modification du userPseudo dans le local storage & dans le state avec la nouvelle valeur input
+    localStorage.setItem("userPseudo", JSON.stringify(e.target.value));
     setUserPseudo(e.target.value);
+
+    // Si la taille du pseudo est = ou > 3, alors on affiche le choix de la difficultée, sinon on la désaffiche
     if (e.target.value.split("").length >= 3) {
       setShowDifficulty(true);
     } else setShowDifficulty(false);
 
-    if (e.target.value.toLowerCase().toString() === "antholebg") {
+    // Pas besoin d'expliquer :D
+    if (
+      e.target.value.toLowerCase().toString().replaceAll(" ", "") ===
+      "antholebg"
+    ) {
       window.location =
         "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
     }
   };
-  // Function de selection de la difficultée
-  const [selectedDifficulty, setSelectedDifficulty] = useState("");
-  const handleClickDifficulty = (e) => {
-    setSelectedDifficulty(e.currentTarget.id);
-  };
 
-  // Function de selection du genre de musique
-  const [selectedGenre, setSelectedGenre] = useState(0);
-  const [gameGenre, setGameGenre] = useState("");
-  const handleClickGenre = (e) => {
-    setSelectedGenre(e.currentTarget.id);
-    if (selectedDifficulty !== 3) {
-      setGameGenre(e.currentTarget.innerHTML);
+  useEffect(() => {
+    // Si un pseudo des déja présent dans le local storage alors on le stock dans la state
+    if (JSON.parse(localStorage.getItem("userPseudo"))) {
+      setUserPseudo(JSON.parse(localStorage.getItem("userPseudo")));
+
+      // Si la taille du pseudo déja présent dans le local storage est = ou > 3, alors on affiche le choix de la difficulté
+      if (JSON.parse(localStorage.getItem("userPseudo")).length >= 3) {
+        setShowDifficulty(true);
+      }
+    }
+  }, []);
+
+  // Lorsque l'utilisateur choisi une difficulté
+  const handleClickDifficulty = (e) => {
+    // Si l'id de la difficulté est compris entre 1 et 3, alors je stock le choix dans le local storage & state
+    if (e.currentTarget.id >= 1 && e.currentTarget.id <= 3) {
+      setSelectedDifficulty(e.currentTarget.id);
+      localStorage.setItem(
+        "userDifficulty",
+        JSON.stringify(e.currentTarget.id)
+      );
+
+      // Si le choix de la difficultée est 3, alors le genre est défini "" dans le local storage
+      if (+e.currentTarget.id === 3) {
+        localStorage.setItem("userGenre", JSON.stringify(""));
+      }
     }
   };
 
-  // Tableau de la configuration de la partie
-  const [gameConfigurations, setGameConfiguration] = useState([]);
+  // Lorsque l'utilisateur choisi un genre, si la dificultée est différente de 3, alors le choix est stocké dans le state
+  const handleClickGenre = (e) => {
+    if (selectedDifficulty !== 3) {
+      setSelectedGenre(e.currentTarget.id);
+      localStorage.setItem(
+        "userGenre",
+        JSON.stringify(e.currentTarget.innerHTML)
+      );
+    }
+  };
 
   return (
     <div className="App">
@@ -52,7 +102,6 @@ function App() {
             <Home
               selectedDifficulty={selectedDifficulty}
               selectedGenre={selectedGenre}
-              userPseudo={userPseudo}
               changePseudo={changePseudo}
               handleClickDifficulty={handleClickDifficulty}
               handleClickGenre={handleClickGenre}
@@ -61,31 +110,38 @@ function App() {
               musicsGenre={musicsGenre}
               attribButton={attribButton}
               setAttribButton={setAttribButton}
+              userPseudo={userPseudo}
+              setSelectedDifficulty={setSelectedDifficulty}
             />
           }
         />
         <Route
           path="/answer"
           element={
-            <Answer
-              selectedDifficulty={selectedDifficulty}
-              selectedGenre={selectedGenre}
-              userPseudo={userPseudo}
-              musicsGenre={musicsGenre}
-              gameGenre={gameGenre}
-              diffusionDuration={diffusionDuration}
-              setDiffusionDurantion={setDiffusionDurantion}
-              gameUserAnswer={gameUserAnswer}
-              setGameUserAnswer={setGameUserAnswer}
-              gameConfigurations={gameConfigurations}
-              setGameConfiguration={setGameConfiguration}
-            />
+            currentStep === 11 ? (
+              <Navigate to="/finish" />
+            ) : (
+              <Answer
+                musicsGenre={musicsGenre}
+                diffusionDuration={diffusionDuration}
+                setDiffusionDurantion={setDiffusionDurantion}
+                gameConfigurations={gameConfigurations}
+                setGameConfiguration={setGameConfiguration}
+                currentStep={currentStep}
+                updateCurrentStep={updateCurrentStep}
+              />
+            )
           }
         />
         <Route path="/home" element={<Home />} />
         <Route
           path="/finish"
-          element={<Finish gameUserAnswer={gameUserAnswer} />}
+          element={
+            <Finish
+              gameConfigurations={gameConfigurations}
+              setGameConfiguration={setGameConfiguration}
+            />
+          }
         />
       </Routes>
     </div>

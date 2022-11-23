@@ -1,28 +1,30 @@
 import extractVideoID from "./getIdYoutube";
 
 const getMusics = (musicsList) => {
+  const arrMusicsList = musicsList;
   let allQuestions = [];
   for (let i = 1; i <= 10; i++) {
     const questions = [];
-    const rands = Math.floor(Math.random() * musicsList.length);
+    const rands = Math.floor(Math.random() * arrMusicsList.length);
     const goodAnswers = {
-      title: musicsList[rands].title,
-      artist: musicsList[rands].artist,
-      genre: musicsList[rands].genre,
-      extract: extractVideoID(musicsList[rands].extract),
+      title: arrMusicsList[rands].title,
+      artist: arrMusicsList[rands].artist,
+      genre: arrMusicsList[rands].genre,
+      extract: extractVideoID(arrMusicsList[rands].extract),
     };
     questions.push(goodAnswers);
+    arrMusicsList.splice(rands, 1);
+
     for (let j = 0; j < 3; j++) {
-      const wrongRands = Math.floor(Math.random() * musicsList.length);
+      const wrongRands = Math.floor(Math.random() * arrMusicsList.length);
       const wrongAnswers = {
-        title: musicsList[wrongRands].title,
-        artist: musicsList[wrongRands].artist,
+        title: arrMusicsList[wrongRands].title,
+        artist: arrMusicsList[wrongRands].artist,
       };
       questions.push(wrongAnswers);
-      musicsList.splice(wrongRands, 1);
+      arrMusicsList.splice(wrongRands, 1);
     }
     allQuestions.push(questions);
-    musicsList.splice(rands, 1);
   }
   return allQuestions;
 };

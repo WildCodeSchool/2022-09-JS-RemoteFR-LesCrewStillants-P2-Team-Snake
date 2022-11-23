@@ -5,7 +5,6 @@ import axios from "axios";
 
 function LecteurMusic({
   videoId,
-  selectedDifficulty,
   diffusionDuration,
   setDiffusionDurantion,
   setVideoPlaying,
@@ -16,7 +15,9 @@ function LecteurMusic({
   useEffect(() => {
     axios
       .get(
-        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=AIzaSyAMVJZ9qc7mcB3XLT3xb3N6fon2LuwPypE`
+        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=${
+          import.meta.env.VITE_API
+        }`
       )
       // Extract the DATA from the received response
       .then((response) => response.data)
@@ -35,16 +36,17 @@ function LecteurMusic({
             ) / 2
           )
         );
-
-        if (selectedDifficulty > 1) {
-          setDiffusionDurantion(10);
-        }
-      });
+      })
+      .catch((err) => console.error("Error in useEffect:", err));
   }, [videoId]);
 
+  if (JSON.parse(localStorage.getItem("userDifficulty")) > 1) {
+    setDiffusionDurantion(10);
+  }
+
   const opts = {
-    height: "5000",
-    width: "5000",
+    height: "0",
+    width: "0",
     playerVars: {
       autoplay: 1,
       start: duration,

@@ -1,27 +1,58 @@
 ## Concept
+On the bus, between two meetings, at grandma's... Let yourself be tempted by a game of musical quiz. With Music Wizz, test your musical culture with 10 questions that you answer in a limited time.
 
-tailwind-install
-Mobile App past with differents categories of music and differents game modes : 
-- Categorie : Rap, 70's 80's, rock and maybe others... 
-- Game mode : easy / normal / hard 
-- A point systeme based on timer will calculate your score 
-- Evolutive avatar 
-- Possibility to restart the game or choose others parameters
+Quick play in just 4 steps :
+ - Enter your nickname (3 characters minimum)
+ - Choose your level of difficulty
+ - Choose your favorite music genre
+ - Click play !
 
-## Font & Colors
+3 levels of difficulty based on speed :
+ - Easy : 15 sec
+ - Medium : 10 sec
+ - Hard : 10 sec and you cannot choose your categorie
+
+In 'easy' or 'medium' mode, choose your categorie of musics :
+ - rap
+ - rock/metal
+ - pop
+ - movie soundtrack
+
+During the party, you have 4 answer choices, choose the one you think is the right one and you automatically go to the next question. 
+A timer allows you to estimate the time you have left to answer.
+The progress bar will let you know if you answered correctly or not.
+At the end of the game, find your final score and a summary of the game.
+At any time, you can return to the home page or restart the game.
+
+### Wireframes
+
+![alt text](./frontend/src/assets/wireframes/P2%20home.png)
+![alt text](./frontend/src/assets/wireframes/P2%20quizz.png)
+![alt text](./frontend/src/assets/wireframes/P2%20score.png)
+
+### Font & Colors
 
 - Font: Kadwa
 - Primary color: #9274AE
 - Secondary color: #E7E7E7
-- Right answer: #71D161
-- Wrong answer: #FF0000
 
-## Wireframes
+### Dependancies
+ - Axios
+ - React-countdown-circle-timer
+ - React-router-dom
+ - React-youtube
+ - React-fontawesome
+ - Sass
+ - TailWind
 
-![alt text](./frontend/src/components/P2%20home.png)
-![alt text](./frontend/src/components/P2%20quizz.png)
-![alt text](./frontend/src/components/P2%20score.png)
+### API
+The API was created specifically for the application : 
+https://api.elie-parthenay.fr/
+Youtube data API : 
+https://developers.google.com/youtube/v3/getting-started
 
+### Working method 
+Method Agile Scrum
 
 ## Setup & Use
 
@@ -42,8 +73,6 @@ Mobile App past with differents categories of music and differents game modes :
 - `lint` : Runs validation tools, and refuses unclean code (will be executed on every _commit_)
 - `fix` : Fixes linter errors (run it if `lint` growls on your code !)
 
-## FAQ
-
 ### Tools
 
 - _Concurrently_ : Allows for several commands to run concurrently in the same CLI
@@ -53,5 +82,3 @@ Mobile App past with differents categories of music and differents game modes :
 - _Prettier_ : "Quality of code" tool as well, focuses on the styleguide
 - _ Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS
 - _Nodemon_ : Allows to restart the server everytime a .js file is udated
-
-## Add

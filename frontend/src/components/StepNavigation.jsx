@@ -4,7 +4,6 @@ export default function StepNavigation({
   labelArray,
   updateStep,
   currentStep,
-  gameUserAnswer,
 }) {
   return (
     <div className="stepWrapper">
@@ -15,7 +14,6 @@ export default function StepNavigation({
           label={item}
           updateStep={updateStep}
           selected={currentStep === index + 1}
-          gameUserAnswer={gameUserAnswer}
         />
       ))}
     </div>

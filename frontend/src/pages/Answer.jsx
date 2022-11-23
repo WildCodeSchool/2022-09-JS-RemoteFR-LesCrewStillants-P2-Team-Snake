@@ -10,32 +10,37 @@ import ButtonRetry from "../components/ButtonRetry";
 import getMusics from "../services/getMusicsList";
 import setUserAnswer from "../services/setUserAnswer";
 import setButtonPosition from "../services/setButtonPosition";
+import updateStep from "../services/updateStep";
 import setStepBar from "../services/setStepBar";
 import RenderTime from "../components/Timer";
 
 function Answer({
-  gameGenre,
-  selectedDifficulty,
   diffusionDuration,
   setDiffusionDurantion,
-  gameUserAnswer,
-  setGameUserAnswer,
   gameConfigurations,
   setGameConfiguration,
+  currentStep,
+  updateCurrentStep,
 }) {
   // Check loading component
   const [isLoading, setIsLoading] = useState(true);
 
-  // Quand la musique youtube se lance
+  // Détermine si la musique doit être diffusée ou non
   const [videoPlaying, setVideoPlaying] = useState(false);
+
+  // Affiche les bouton lorsque la musique est lancée et les désaffiche lorsque qu'elle est arretée
   const [showButtonPlaying, setShowButtonPlaying] = useState(false);
 
-  // Game configuration
+  // Id de la vidéo youtube correspondante à l'étape actuelle
   const [currentVideo, setCurrentVideo] = useState("");
+
+  // Position des bouton à afficher à l'utilisateur pour le choix des réponses à chaque étapes
   const [buttonPositionArray, setButtonPositionArray] = useState([]);
-  // Etapes de la partie
-  const [currentStep, updateCurrentStep] = useState(1);
+
+  // Stock l'id du bouton cliqué pour changer son style et donner un effect enfoncé
   const [selected, setSelected] = useState(0);
+
+  // Tableau initial des 10 étapes de la partie
   const [labelArray, setLabelArray] = useState([
     "1",
     "2",
@@ -48,26 +53,28 @@ function Answer({
     "9",
     "10",
   ]);
-  const updateStep = (step) => {
-    setVideoPlaying(false);
-    updateCurrentStep(step);
-    setCurrentVideo(gameConfigurations[step - 1][0].extract);
-    setButtonPositionArray(setButtonPosition());
-  };
 
+  // Lorque l'utilisateur clique sur une réponse
   const handleClick = (e) => {
-    if (currentStep === 10) {
-      window.location = "/finish";
+    // La musique s'arrete
+    setVideoPlaying(false);
+
+    // Passage à l'étape suivante, modification de l'id vidéo & changement de la progress bar
+    updateStep(
+      currentStep + 1,
+      updateCurrentStep,
+      setCurrentVideo,
+      setButtonPositionArray,
+      gameConfigurations,
+      setButtonPosition
+    );
+
+    // Si nous avons bien un event sur le bouton cliqué, alors nous modifion le state
+    if (e !== "") {
+      setSelected(e.currentTarget.id);
     }
-    setSelected(e.currentTarget.id);
-    updateStep(currentStep + 1);
-
-    if (e.currentTarget.innerHTML.toString()) {
-      setGameUserAnswer([
-        ...gameUserAnswer,
-        setUserAnswer(gameConfigurations, e, currentStep),
-      ]);
-
+    if (e === "" || e.currentTarget.innerHTML.toString()) {
+      setUserAnswer(gameConfigurations, e, currentStep);
       setLabelArray(setStepBar(labelArray, gameConfigurations, e, currentStep));
     }
   };
@@ -81,12 +88,18 @@ function Answer({
 
   // permet d'aller fetch mon api et d'initialiser le state "apiMusicList"
   useEffect(() => {
-    const API = `https://api.elie-parthenay.fr/musics?genre=${gameGenre}`;
+    // Supression de l'ancien tableau résultat user localstorage
+    localStorage.removeItem("gameUserAnswer");
+
+    const API = `https://api.elie-parthenay.fr/musics?genre=${JSON.parse(
+      localStorage.getItem("userGenre")
+    )}`;
     axios
       .get(API)
       // Extract the DATA from the received response
       .then((res) => {
-        setGameConfiguration(getMusics(res.data.results.musics));
+        const gameConfigurationInit = getMusics(res.data.results.musics);
+        setGameConfiguration(gameConfigurationInit);
         setButtonPositionArray(setButtonPosition());
         setIsLoading(false);
       })
@@ -96,10 +109,18 @@ function Answer({
   return (
     (isLoading && <h1> Is Loading</h1>) || (
       <div id="answerContainer">
+        <LecteurMusic
+          videoId={currentVideo}
+          diffusionDuration={diffusionDuration}
+          setDiffusionDurantion={setDiffusionDurantion}
+          setVideoPlaying={setVideoPlaying}
+          setShowButtonPlaying={setShowButtonPlaying}
+        />
         <header>
           <h1>Answers</h1>
-          <div className="timer-wrapper">
-            {videoPlaying ? (
+
+          {videoPlaying ? (
+            <div className="timer-wrapper">
               <CountdownCircleTimer
                 isPlaying
                 duration={diffusionDuration}
@@ -116,17 +137,17 @@ function Answer({
                   );
                   setShowButtonPlaying(false);
                   setTimeout(() => {
-                    updateStep(currentStep + 1);
+                    handleClick("");
                   }, "3000");
                   [(true, 1000)]; // eslint-disable-line no-unused-expressions
                 }}
               >
                 {RenderTime}
               </CountdownCircleTimer>
-            ) : (
-              <div className="countdownLoading">Loading...</div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="countdownLoading">Loading...</div>
+          )}
         </header>
         <main>
           <div className="circlebg" />
@@ -137,7 +158,6 @@ function Answer({
                   labelArray={labelArray}
                   currentStep={currentStep}
                   updateStep={updateStep}
-                  gameUserAnswer={gameUserAnswer}
                   gameConfigurations={gameConfigurations}
                 />
               </div>
@@ -219,14 +239,6 @@ function Answer({
             </div>
           </div>
         </main>
-        <LecteurMusic
-          selectedDifficulty={selectedDifficulty}
-          videoId={currentVideo}
-          diffusionDuration={diffusionDuration}
-          setDiffusionDurantion={setDiffusionDurantion}
-          setVideoPlaying={setVideoPlaying}
-          setShowButtonPlaying={setShowButtonPlaying}
-        />
       </div>
     )
   );
