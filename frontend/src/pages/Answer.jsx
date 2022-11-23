@@ -56,23 +56,6 @@ function Answer({
 
   // Lorque l'utilisateur clique sur une réponse
   const handleClick = (e) => {
-    /*
-     * DEBUG TOTAL
-     */
-
-    console.warn("****** DEBUG *****");
-    console.warn("=== gameConfiguration ===");
-    console.warn(gameConfigurations);
-    console.warn("=== currentVideo ===");
-    console.warn(currentVideo);
-    console.warn("=== userAnswer ===");
-    console.warn(JSON.parse(localStorage.getItem("gameUserAnswer")));
-    console.warn("****** END DEBUG *****");
-
-    /*
-     * END DEBUG TOTAL
-     */
-
     // La musique s'arrete
     setVideoPlaying(false);
 
@@ -126,6 +109,13 @@ function Answer({
   return (
     (isLoading && <h1> Is Loading</h1>) || (
       <div id="answerContainer">
+        <LecteurMusic
+          videoId={currentVideo}
+          diffusionDuration={diffusionDuration}
+          setDiffusionDurantion={setDiffusionDurantion}
+          setVideoPlaying={setVideoPlaying}
+          setShowButtonPlaying={setShowButtonPlaying}
+        />
         <header>
           <h1>Answers</h1>
 
@@ -249,13 +239,6 @@ function Answer({
             </div>
           </div>
         </main>
-        <LecteurMusic
-          videoId={currentVideo}
-          diffusionDuration={diffusionDuration}
-          setDiffusionDurantion={setDiffusionDurantion}
-          setVideoPlaying={setVideoPlaying}
-          setShowButtonPlaying={setShowButtonPlaying}
-        />
       </div>
     )
   );

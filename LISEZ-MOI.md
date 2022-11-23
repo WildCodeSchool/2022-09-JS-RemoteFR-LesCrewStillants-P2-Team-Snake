@@ -9,7 +9,7 @@ Jouer rapidement en seulement 4 étapes
 
 Choisissez votre niveau de difficulté basé sur la rapidité :
  - Easy : 15 sec
- - Medium : 30 sec
+ - Medium : 10 sec
  - Hard : 10 sec et vous ne pouvez pas choisir votre catégorie
 
 En mode 'easy' ou 'medium', choisissez votre catégorie de musique :
@@ -26,9 +26,9 @@ Une barre de progression vous indique si vous avez répondu correctement aux que
 
 ### Maquettes finales
 
-![alt text](./frontend/src/components/P2%20home.png)
-![alt text](./frontend/src/components/P2%20quizz.png)
-![alt text](./frontend/src/components/P2%20score.png)
+![alt text](./frontend/src/assets/wireframes/P2%20home.png)
+![alt text](./frontend/src/assets/wireframes/P2%20quizz.png)
+![alt text](./frontend/src/assets/wireframes/P2%20score.png)
 
 ### Polices et couleurs
 
@@ -36,10 +36,14 @@ Une barre de progression vous indique si vous avez répondu correctement aux que
 - Primary color: #9274AE
 - Secondary color: #E7E7E7
 
-### Dependances
+### Dependancies
  - Axios
  - React-countdown-circle-timer
+ - React-router-dom
  - React-youtube
+ - React-fontawesome
+ - Sass
+ - TailWind
 
 ### API
 Une API a été créée spécialement pour cette application : 

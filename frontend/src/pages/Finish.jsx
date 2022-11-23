@@ -1,56 +1,100 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
-import antho from "../assets/images/antho.png";
 import anthounhappy from "../assets/images/anthounhappy.png";
 import anthohappy from "../assets/images/anthohappy.png";
 import anthony from "../assets/images/anthony.png";
-import bulle from "../assets/images/bulle.png";
 import ButtonHome from "../components/ButtonHome";
 import ButtonRetry from "../components/ButtonRetry";
+import StepNavigation from "../components/StepNavigation";
 
 export default function Finish({ gameConfigurations }) {
   const [userResult, setUserResult] = useState([]);
   const [userResultScore, setUserResultSocre] = useState(0);
-  const [avatarAnthony, setAvatarAnthony] = useState(antho);
   const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const currentStep = 11;
+
+  const [labelArray, setLabelArray] = useState([]);
 
   const avatar = (Score) => {
     if (Score <= 3) {
-      return (
-        <>
-          <p className="sentence">bad</p>
-          <img className="anthounhappy" src={anthounhappy} alt="antho" />
-        </>
-      );
+      return <img className="anthounhappy" src={anthounhappy} alt="antho" />;
     }
     if (Score <= 7 && Score > 3) {
-      return (
-        <>
-          <p className="sentence">not bad</p>
-          <img className="antho" src={anthounhappy} alt="antho" />
-        </>
-      );
+      return <img className="antho" src={anthony} alt="antho" />;
     }
-    return (
-      <>
-        <p className="sentence">Good</p>
-        <img className="anthohappy" src={anthohappy} alt="antho" />
-      </>
-    );
+    return <img className="anthohappy" src={anthohappy} alt="antho" />;
   };
 
   useEffect(() => {
-    setUserResultSocre(
-      JSON.parse(localStorage.getItem("gameUserAnswer")).filter(
-        (item) => item.goodAnswer === true
-      ).length
-    );
-    setUserResult(JSON.parse(localStorage.getItem("gameUserAnswer")));
-    if (gameConfigurations.length === 0) {
+    // Si le state gameConfiguration est renseigné alors je le stock dans le localstorage
+    if (gameConfigurations.length > 0) {
+      localStorage.setItem(
+        "gameConfigurations",
+        JSON.stringify(gameConfigurations)
+      );
+    }
+
+    if (localStorage.getItem("gameUserAnswer") === null) {
       window.location = "/";
     } else {
-      setAvatarAnthony("antho");
+      const prepareArrayLabel = [];
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < 10; i++) {
+        if (
+          JSON.parse(localStorage.getItem("gameUserAnswer"))[i].goodAnswer ===
+          true
+        ) {
+          prepareArrayLabel.push("✅");
+        } else {
+          prepareArrayLabel.push("❌");
+        }
+      }
+      setLabelArray(prepareArrayLabel);
+      // Calcule des bonnes réponse et stock dans le state
+      const userFinalScore = JSON.parse(
+        localStorage.getItem("gameUserAnswer")
+      ).filter((item) => item.goodAnswer === true).length;
+      setUserResultSocre(userFinalScore);
+
+      // Récupération des infos de la partie et stock dans le state
+      setUserResult(JSON.parse(localStorage.getItem("gameUserAnswer")));
+
+      switch (userFinalScore) {
+        case 1:
+          setMessage("Very bad !");
+          break;
+        case 2:
+          setMessage("Try again !");
+          break;
+        case 3:
+          setMessage("You can do better !");
+          break;
+        case 4:
+          setMessage("Be better next time !");
+          break;
+        case 5:
+          setMessage("Not bad !");
+          break;
+        case 6:
+          setMessage("Good job !");
+          break;
+        case 7:
+          setMessage("Good score !");
+          break;
+        case 8:
+          setMessage("Well done !");
+          break;
+        case 9:
+          setMessage("Almost perfect !");
+          break;
+        case 10:
+          setMessage("Masterclass !");
+          break;
+        default:
+          setMessage("I'm crying inside !");
+      }
     }
   }, []);
 
@@ -61,58 +105,66 @@ export default function Finish({ gameConfigurations }) {
           <img className="logo" alt="backgroundimage" src={logo} />
         </h1>
         <div className="headerelements">
-          <h2 className="result">Results</h2>
-          <img className="bulle" src={bulle} alt="bulle" />
           <p className="avatar">{avatar(userResultScore)}</p>
+          <div className="bulle">
+            <p>{message}</p>
+          </div>
         </div>
       </header>
       <main>
         <div>
           <div className="scoreboard">
-            <h1 className="score">
-              Your score is : {userResultScore}/10, recap ➡️
-            </h1>
+            <div className="navi navi-finish">
+              <StepNavigation
+                labelArray={labelArray}
+                currentStep={currentStep}
+              />
+            </div>
+            <h1 className="score">Score : {userResultScore}/10</h1>
             <div>
               <button
-                className="buttonsb"
+                className="buttonSummary"
                 type="button"
                 onClick={() => setShowModal(!showModal)}
               >
-                🧮
+                Your answers
               </button>
             </div>
             <div>
               {showModal ? (
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                  <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                    <table className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray-400 outline-none focus:outline-none flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t ">
+                  <div className="relative w-auto my-6 mx-auto max-w-3xl resultBg ">
+                    <table className="resultTable flex flex-col w-full p-5 items-center">
                       <tbody>
                         <tr>
                           <th>Step</th>
-                          <th>Artist - Title</th>
-                          <th>Your anwer</th>
-                          <th>Result</th>
+                          <th>Your answer</th>
+                          <th>Good Answer</th>
                         </tr>
                         {userResult.length > 0
-                          ? gameConfigurations.map((step, index) => (
-                              <tr>
-                                <td>{index + 1}</td>
-                                <td>{`${step[0].artist} - ${step[0].title}`}</td>
+                          ? JSON.parse(
+                              localStorage.getItem("gameConfigurations")
+                            ).map((step, index) => (
+                              <tr
+                                className={
+                                  userResult[index].goodAnswer
+                                    ? "resultTableWin"
+                                    : "resultTableLoose"
+                                }
+                              >
+                                <td className="font-bold">{index + 1}</td>
                                 <td>{userResult[index].answer}</td>
-                                <td>
-                                  {userResult[index].goodAnswer ? "✅" : "❌"}
-                                </td>
+                                <td>{`${step[0].artist} - ${step[0].title}`}</td>
                               </tr>
                             ))
                           : false}
                       </tbody>
-
                       <button
-                        className="button"
+                        className="buttonSummary mt-2"
                         onClick={() => setShowModal(false)}
                         type="button"
                       >
-                        <span>❌</span>
+                        <span>Close</span>
                       </button>
                     </table>
                   </div>

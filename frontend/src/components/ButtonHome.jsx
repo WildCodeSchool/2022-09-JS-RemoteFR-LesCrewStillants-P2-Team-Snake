@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+
 function ButtonHome() {
   const hundleClick = () => {
     // eslint-disable-next-line no-restricted-globals, no-alert
@@ -9,7 +12,7 @@ function ButtonHome() {
   return (
     <div>
       <button onClick={hundleClick} type="button">
-        🏠
+        <FontAwesomeIcon icon={faHome} />
       </button>
     </div>
   );
