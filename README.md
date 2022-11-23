@@ -26,9 +26,9 @@ At any time, you can return to the home page or restart the game.
 
 ### Wireframes
 
-![alt text](./frontend/src/components/P2%20home.png)
-![alt text](./frontend/src/components/P2%20quizz.png)
-![alt text](./frontend/src/components/P2%20score.png)
+![alt text](./frontend/src/assets/wireframes/P2%20home.png)
+![alt text](./frontend/src/assets/wireframes/P2%20quizz.png)
+![alt text](./frontend/src/assets/wireframes/P2%20score.png)
 
 ### Font & Colors
 

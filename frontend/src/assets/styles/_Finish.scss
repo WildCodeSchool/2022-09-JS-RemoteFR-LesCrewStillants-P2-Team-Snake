@@ -26,19 +26,46 @@
   }
 
   .bulle {
-    width: 20vh;
+    width: 27vh;
     height: 20vh;
-    position: absolute;
     top: 16vh;
-    left: 23vh;
-    z-index: -1;
+    z-index: 1;
+    background-image: url("./assets/images/bulle.png");
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -6rem;
+    margin-top: -2rem;
+  }
+
+  .bulle p {
+    font-family: "Kadwa";
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: -4vh;
   }
 
   .headerelements {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+  }
+
+  .avatar {
+    width: min-content;
+  }
+
+  .avatar img {
+    width: 40vh;
+  }
+
+  img {
+    max-width: 100vw;
   }
 
   .sentence {
@@ -85,12 +112,63 @@
     margin-top: 2vh;
   }
 
+  .navi-finish {
+    margin-top: -1px;
+    width: 100%;
+    background-color: #00000033;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  .resultBg {
+    background-color: rgba(255, 255, 255, 0.918);
+  }
+
+  .resultTable {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .resultTable th {
+    background-color: rgba(0, 0, 0, 0.182);
+  }
+
+  .resultTable td,
+  th {
+    border: 1px rgb(166, 166, 166) solid;
+    padding: 0.2rem;
+  }
+
+  .resultTableWin {
+    background-color: rgba(68, 255, 0, 0.243);
+  }
+
+  .resultTableLoose {
+    background-color: rgba(255, 0, 0, 0.243);
+  }
+
+  .buttonSummary {
+    padding: 0.5rem;
+    filter: drop-shadow(0 -5px 5px #585858);
+    box-shadow: inset 0 -10px 0 #5c4373;
+    border: 2px solid;
+    border-top: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: #9274ae;
+    font-family: "Kadwa";
+    font-size: 1.2rem;
+  }
+
   .score {
     font-family: "Kadwa";
-    font-size: 1.8rem;
-    max-width: 20vh;
+    font-size: 1.5rem;
     color: white;
     text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .scoreboard {
